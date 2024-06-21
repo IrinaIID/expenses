@@ -5,10 +5,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
   { path: '', component: BalanceComponent },
-  { path: 'sign-in', component: SignInComponent},
+  { path: 'sign-in', 
+    loadChildren: () => import('./sign-in/sign-in-routing.module').then((m) => m.SignInRoutingModule)
+  },
   {
     path: 'exchange-rate',
-    loadChildren: () => import('./exchange-rate/exchange-rate.module').then((m) => m.ExchangeRateModule)
+    loadChildren: () => import('./exchange-rate/exchange-rate-routing.module').then((m) => m.ExchangeRateRoutingModule)
   },
   {
     path: 'add-transaction',
