@@ -9,8 +9,8 @@ export class NamePageBlockComponent implements OnInit{
 
   @Input() namePage!: string;
   currentDate!: string;
-  name: string ='Irina';
-  dateCreation: string = '2024/06/18';
+  name ='Irina';
+  dateCreation = '2024/06/18';
 
   ngOnInit(): void {
     const dateNow = new Date();
@@ -42,7 +42,7 @@ export class NamePageBlockComponent implements OnInit{
       case 6:
         dayWeekString = 'Sat';
         break;
-    };
+    }
 
     this.currentDate = `${year}/${month.toString().padStart(2, '0')}/${day}   ${dayWeekString}`;
   }

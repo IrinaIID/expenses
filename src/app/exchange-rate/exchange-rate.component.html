@@ -1,3 +1,25 @@
-<div class="all-page">
-  
-</div>-exchange-rate
+<div class="all-page-exchange-rate">
+  <div class="guest-block">
+    <h1 class="h1-text-guest">Welcome to <span class="span-highlight">Expense tracker! </span><br/> For getting more functionality please</h1>
+    <a class="link-sign-in" [routerLink]="['../sign-in']">Sign In</a>
+  </div>
+  <div class="currency-block">
+    <div class="currency-name-block">
+      <h2>Exchanges rates</h2>
+      <div class="btns-toggle-view-block">
+        <button class="btn-toggle btn-cards">Cards</button>
+        <button class="btn-toggle btn-table">Table</button>
+      </div>
+    </div>
+    <p class="p-base-currency">base currency: <span class="span-base-currency">{{ baseCurrency }}</span></p>
+    <!-- <p class="p-base-currency">last update: <span class="span-base-currency">{{ currencyData.time_last_update_utc | date }}</span></p> -->
+    <div class="all-currency-elements-block">
+      
+      <app-card-exchange-rate *ngFor="let rateItem of ratesArr"
+        [baseCurrency]="baseCurrency"
+        [currency]="rateItem.currency"
+        [rate]="rateItem.rate"
+      ></app-card-exchange-rate>
+    </div>
+  </div>
+</div>
