@@ -13,10 +13,13 @@ export class ExchangeRateComponent implements OnInit {
   currencyData: Currency = {} as Currency;
   ratesArr: Rate[] = [];
   baseCurrency!: string;
+  isCards!: boolean;
 
   exchangeService = inject(ExchangeService);
   
   ngOnInit(): void {
+
+    this.isCards = true;
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
@@ -35,6 +38,14 @@ export class ExchangeRateComponent implements OnInit {
       console.log(this.currencyData)
     })
 
+  }
+
+  setCardsView() {
+    this.isCards = true
+  }
+
+  setTableView() {
+    this.isCards = false
   }
 
 }

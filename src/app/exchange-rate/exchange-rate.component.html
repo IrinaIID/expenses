@@ -7,19 +7,27 @@
     <div class="currency-name-block">
       <h2>Exchanges rates</h2>
       <div class="btns-toggle-view-block">
-        <button class="btn-toggle btn-cards">Cards</button>
-        <button class="btn-toggle btn-table">Table</button>
+        <button [ngClass]="isCards ? 'btn-toggle btn-active' : 'btn-toggle'" (click)="setCardsView()">Cards</button>
+        <button [ngClass]="!isCards ? 'btn-toggle btn-active' : 'btn-toggle'" (click)="setTableView()">Table</button>
       </div>
     </div>
-    <p class="p-base-currency">base currency: <span class="span-base-currency">{{ baseCurrency }}</span></p>
-    <!-- <p class="p-base-currency">last update: <span class="span-base-currency">{{ currencyData.time_last_update_utc | date }}</span></p> -->
+    <!-- <p class="p-base-currency">base currency: <span class="span-base-currency">{{ baseCurrency }}</span></p> -->
+    <p class="p-base-currency">last update: <span class="span-base-currency">{{ currencyData.time_last_update_utc | date }}</span></p>
     <div class="all-currency-elements-block">
-      
-      <app-card-exchange-rate *ngFor="let rateItem of ratesArr"
-        [baseCurrency]="baseCurrency"
-        [currency]="rateItem.currency"
-        [rate]="rateItem.rate"
-      ></app-card-exchange-rate>
+      <div *ngIf="!isCards" class="all-table-block">
+        <app-table-exchange-rate
+          [ratesArr]="ratesArr"
+          [baseCurrency]="baseCurrency"
+        >
+        </app-table-exchange-rate>
+      </div>
+      <div *ngIf="isCards" class="all-cards-block">
+        <app-card-exchange-rate *ngFor="let rateItem of ratesArr"
+          [baseCurrency]="baseCurrency"
+          [currency]="rateItem.currency"
+          [rate]="rateItem.rate"
+        ></app-card-exchange-rate>
+      </div>
     </div>
   </div>
 </div>

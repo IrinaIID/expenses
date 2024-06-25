@@ -3,7 +3,7 @@
 
 .guest-block {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 10px;
   margin: 100px 0 200px;
 
@@ -28,11 +28,12 @@
 }
 
 .currency-block {
+  width: 100%;
 
   .currency-name-block {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
   
     .btns-toggle-view-block {
       display: flex;
@@ -49,7 +50,7 @@
         cursor: pointer;
       }
   
-      .btn-cards {
+      .btn-active {
         background: #ffffff;
       }
     }
@@ -60,7 +61,7 @@
     margin-top: 7px;
   }
 
-  .all-currency-elements-block {
+  .all-cards-block {
     width: 100%;
     display: flex;
     justify-content: space-between;

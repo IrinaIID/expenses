@@ -4,12 +4,14 @@ import { ExchangeRateComponent } from './exchange-rate.component';
 import { ExchangeRateRoutingModule } from './exchange-rate-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CardExchangeRateComponent } from './card-exchange-rate/card-exchange-rate.component';
+import { TableExchangeRateComponent } from './table-exchange-rate/table-exchange-rate.component';
 
 
 @NgModule({
   declarations: [
     ExchangeRateComponent,
-    CardExchangeRateComponent
+    CardExchangeRateComponent,
+    TableExchangeRateComponent
   ],
   imports: [
     CommonModule,
