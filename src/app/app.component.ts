@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   projectInfo$!: Observable<Project[]>;
 
   ngOnInit(): void {
+    console.log('onInit')
     // this.projectFirebaseService.getProjectInfo().subscribe(info => {
     //   console.log(info)
     // })

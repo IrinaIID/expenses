@@ -1,0 +1,15 @@
+@import  '../variables.scss';
+
+.all-page {
+  max-width: $base-container-width;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-row-gap: 70px;
+  margin: auto;
+}
+
+.main {
+  padding-left: $base-container-horizontal-paddings;
+  padding-right: $base-container-horizontal-paddings;
+}
