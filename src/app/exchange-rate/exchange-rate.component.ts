@@ -19,7 +19,11 @@ export class ExchangeRateComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.isCards = true;
+    if (sessionStorage.getItem("isCards") === 'false') {
+      this.isCards = false;
+    } else {
+      this.isCards = true;
+    }
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
@@ -41,11 +45,13 @@ export class ExchangeRateComponent implements OnInit {
   }
 
   setCardsView() {
-    this.isCards = true
+    this.isCards = true;
+    sessionStorage.setItem("isCards", "true")
   }
 
   setTableView() {
-    this.isCards = false
+    this.isCards = false;
+    sessionStorage.setItem("isCards", "false")
   }
 
 }
