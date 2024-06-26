@@ -7,18 +7,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormTransactionComponent } from './form-transaction/form-transaction.component';
 
-
 @NgModule({
-  declarations: [
-    AddTransactionComponent,
-    FormTransactionComponent
-  ],
-  imports: [
-    CommonModule,
-    AddTransactionRoutingModule,
-    SharedModule,
-    ReactiveFormsModule
-  ],
-  exports: [AddTransactionComponent]
+  declarations: [AddTransactionComponent, FormTransactionComponent],
+  imports: [CommonModule, AddTransactionRoutingModule, SharedModule, ReactiveFormsModule],
+  exports: [AddTransactionComponent],
 })
-export class AddTransactionModule { }
+export class AddTransactionModule {}

@@ -1,8 +1,6 @@
 @import '../../../variables.scss';
 
 .all-form-transaction {
-
-
   .btns-type-trasaction-block {
     max-width: 800px;
     display: flex;
@@ -19,7 +17,6 @@
       &:hover {
         color: #ffffff;
         background: $accent-color;
-        border: none;
       }
     }
 
@@ -32,7 +29,6 @@
       color: #ffffff;
       background: $primary-color;
     }
-
   }
 
   .h2-type-transaction {
@@ -40,7 +36,7 @@
     margin: 40px 0;
   }
 
-  .all-form-filds-transaction {
+  .all-form-fields-transaction {
     max-width: 800px;
     width: 100%;
 
@@ -73,5 +69,4 @@
       gap: 40px;
     }
   }
-
 }

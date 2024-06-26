@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { ExchangeRateModule } from './exchange-rate/exchange-rate.module';
 import { SignInModule } from './sign-in/sign-in.module';
 import { BalanceModule } from './balance/balance.module';
@@ -15,11 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AddTransactionModule } from './add-transaction/add-transaction.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,9 +25,9 @@ import { AddTransactionModule } from './add-transaction/add-transaction.module';
     ExchangeRateModule,
     SignInModule,
     BalanceModule,
-    AddTransactionModule
+    AddTransactionModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

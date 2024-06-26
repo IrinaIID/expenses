@@ -3,13 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-name-page-block',
   templateUrl: './name-page-block.component.html',
-  styleUrls: ['./name-page-block.component.scss']
+  styleUrls: ['./name-page-block.component.scss'],
 })
-export class NamePageBlockComponent implements OnInit{
-
+export class NamePageBlockComponent implements OnInit {
   @Input() namePage!: string;
   currentDate!: string;
-  name ='Irina';
+  name = 'Irina';
   dateCreation = '2024/06/18';
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class NamePageBlockComponent implements OnInit{
         break;
       case 3:
         dayWeekString = 'Wed';
-        break; 
+        break;
       case 4:
         dayWeekString = 'Thu';
         break;
@@ -46,5 +45,4 @@ export class NamePageBlockComponent implements OnInit{
 
     this.currentDate = `${year}/${month.toString().padStart(2, '0')}/${day}   ${dayWeekString}`;
   }
-
 }

@@ -1,14 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Transaction, TypeTransaction } from 'src/app/shared/interfaces';
+import { Component, inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { TypeTransaction } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-form-transaction',
   templateUrl: './form-transaction.component.html',
-  styleUrls: ['./form-transaction.component.scss']
+  styleUrls: ['./form-transaction.component.scss'],
 })
-export class FormTransactionComponent implements OnInit {
-
+export class FormTransactionComponent {
   typeTransaction!: TypeTransaction;
 
   private formBuilder = inject(FormBuilder);
@@ -23,19 +22,15 @@ export class FormTransactionComponent implements OnInit {
     regularity: false,
     category: '',
     subcategories: [],
-    date: new Date()
-  })
-
-  ngOnInit(): void {
-
-  }
+    date: new Date(),
+  });
 
   setIncomeTypeTransaction(): void {
-    this.typeTransaction = 'income'
+    this.typeTransaction = 'income';
   }
 
   setExpenseTypeTransaction(): void {
-    this.typeTransaction = 'expense'
+    this.typeTransaction = 'expense';
   }
 
   submitForm(): void {
@@ -43,5 +38,4 @@ export class FormTransactionComponent implements OnInit {
       console.log('Form data:', this.transactionForm.value);
     }
   }
-
 }
