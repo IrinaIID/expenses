@@ -12,6 +12,7 @@ import { SignInModule } from './sign-in/sign-in.module';
 import { BalanceModule } from './balance/balance.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AddTransactionModule } from './add-transaction/add-transaction.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FooterComponent } from './components/footer/footer.component';
     provideFirestore(() => getFirestore()),
     ExchangeRateModule,
     SignInModule,
-    BalanceModule
+    BalanceModule,
+    AddTransactionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

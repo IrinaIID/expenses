@@ -8,8 +8,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="tr-row" *ngFor="let rateItem of ratesArr">
-      <td>1</td>
+    <tr class="tr-row" *ngFor="let rateItem of ratesArr; let index = index">
+      <td>{{ index }}</td>
       <td>{{ baseCurrency }}</td>
       <td>{{ rateItem.currency }}</td>
       <td>{{ rateItem.rate }}</td>

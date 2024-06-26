@@ -10,25 +10,23 @@ import { Currency, Rate } from './interfaces';
 })
 export class ExchangeRateComponent implements OnInit {
 
-  currencyData: Currency = {} as Currency;
+  currencyData!: Currency;
   ratesArr: Rate[] = [];
   baseCurrency!: string;
   isCards!: boolean;
+  updateTime!: string;
 
   exchangeService = inject(ExchangeService);
   
   ngOnInit(): void {
 
-    if (sessionStorage.getItem("isCards") === 'false') {
-      this.isCards = false;
-    } else {
-      this.isCards = true;
-    }
+    sessionStorage.getItem("isCards") === 'false' ? this.isCards = false : this.isCards = true;
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
     this.exchangeService.getCurrency().subscribe(data => {
-      this.currencyData = data as Currency;
+      this.currencyData = data;
+      this.updateTime = data.time_last_update_utc;
 
       for (const property in this.currencyData.rates) {
         this.ratesArr.push({
@@ -37,19 +35,18 @@ export class ExchangeRateComponent implements OnInit {
         })
       }
 
-      console.log(this.ratesArr);
-
-      console.log(this.currencyData)
+      // console.log(this.ratesArr);
+      // console.log(this.currencyData)
     })
 
   }
 
-  setCardsView() {
+  setCardsView(): void {
     this.isCards = true;
     sessionStorage.setItem("isCards", "true")
   }
 
-  setTableView() {
+  setTableView(): void {
     this.isCards = false;
     sessionStorage.setItem("isCards", "false")
   }

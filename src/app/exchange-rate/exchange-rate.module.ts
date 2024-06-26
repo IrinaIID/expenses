@@ -16,7 +16,6 @@ import { TableExchangeRateComponent } from './table-exchange-rate/table-exchange
   imports: [
     CommonModule,
     ExchangeRateRoutingModule,
-    SharedModule,
   ],
   exports: [
     ExchangeRateComponent
