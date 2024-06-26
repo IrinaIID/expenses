@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TypeTransaction } from 'src/app/shared/interfaces';
+import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../const';
+import { Category } from '../interfaces';
+
+
 
 @Component({
   selector: 'app-form-transaction',
@@ -8,7 +12,9 @@ import { TypeTransaction } from 'src/app/shared/interfaces';
   styleUrls: ['./form-transaction.component.scss'],
 })
 export class FormTransactionComponent {
+
   typeTransaction!: TypeTransaction;
+  categoriesArr!: Category[];
 
   private formBuilder = inject(FormBuilder);
 
@@ -27,10 +33,12 @@ export class FormTransactionComponent {
 
   setIncomeTypeTransaction(): void {
     this.typeTransaction = 'income';
+    this.categoriesArr = INCOME_CATEGORIES;
   }
 
   setExpenseTypeTransaction(): void {
     this.typeTransaction = 'expense';
+    this.categoriesArr = EXPENSES_CATEGORIES;
   }
 
   submitForm(): void {
