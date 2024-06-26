@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-  
+
     .month-card {
       width: 100%;
       border: $base-card-border;
@@ -20,8 +20,6 @@
         color: $primary-color;
       }
 
-
-
       .p-amount {
         font-size: 26px;
         font-weight: 700;
@@ -30,7 +28,6 @@
     }
   }
 }
-
 
 .green-shadow {
   color: red;

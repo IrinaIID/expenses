@@ -1,0 +1,99 @@
+@import '../../../variables.scss';
+
+.all-form-transaction {
+  .btns-type-trasaction-block {
+    max-width: 800px;
+    display: flex;
+    gap: 20px;
+
+    .btn-type-transaction {
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      border-radius: $base-border-radius;
+      padding: 17px 0;
+      cursor: pointer;
+
+      &:hover {
+        color: #ffffff;
+        background: $accent-color;
+      }
+    }
+
+    .btn-income {
+      background: none;
+      border: 1px solid $primary-color;
+    }
+
+    .btn-expense {
+      color: #ffffff;
+      background: $primary-color;
+    }
+  }
+
+  .h2-type-transaction {
+    text-transform: capitalize;
+    margin: 40px 0;
+  }
+
+  .all-form-fields-transaction {
+    max-width: 800px;
+    width: 100%;
+
+    .input-block {
+      width: 100%;
+      display: flex;
+      margin-bottom: 20px;
+
+      .label {
+        width: 140px;
+        font-weight: 700;
+        padding-top: 10px;
+      }
+
+      .input {
+        width: 100%;
+        padding: 12px 17px;
+        outline: none;
+        border: 1px solid $light-color;
+        border-radius: $base-border-radius;
+      }
+
+      .input-description {
+        height: 120px;
+        resize: none;
+      }
+
+      .input-count {
+        width: 160px;
+      }
+    }
+
+    .input-block-count {
+      max-width: 300px;
+    }
+
+
+    .input-block-radio {
+      display: flex;
+      align-items: center;
+
+
+
+      .input-radio {
+        width: 30px;
+        height: 30px;
+        margin: 0 20px 0 10px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .input-select {
+    outline: none;
+    width: 100%;
+    height: 40px;
+    border-radius: $base-border-radius;
+
+  }
+}

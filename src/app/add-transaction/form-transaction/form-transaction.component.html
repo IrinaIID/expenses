@@ -1,0 +1,81 @@
+<form
+  class="all-form-transaction"
+  [formGroup]="transactionForm"
+  (ngSubmit)="submitForm()"
+>
+  <div class="btns-type-trasaction-block">
+    <button
+      type="button"
+      class="btn-type-transaction btn-income"
+      (click)="setIncomeTypeTransaction()"
+    >
+      Income
+    </button>
+    <button
+      type="button"
+      class="btn-type-transaction btn-expense"
+      (click)="setExpenseTypeTransaction()"
+    >
+      Expense
+    </button>
+  </div>
+  <h2 class="h2-type-transaction">{{ typeTransaction || null }}</h2>
+  <!-- <div *ngIf="typeTransaction" class="all-form-fields-transaction"> -->
+  <div class="all-form-fields-transaction">
+    <div class="input-block">
+      <label for="title" class="label">Title</label>
+      <input
+        type="text"
+        id="title"
+        class="input input-title"
+        formControlName="title"
+      />
+    </div>
+
+    <div class="input-block">
+      <label for="description" class="label">Description</label>
+      <textarea
+        id="description"
+        class="input input-description"
+        formControlName="description"
+      ></textarea>
+    </div>
+
+    <div class="input-block input-block-count">
+      <label for="count" class="label">Count</label>
+      <input
+        type="number"
+        id="count"
+        class="input input-count"
+        formControlName="count"
+      />
+    </div>
+
+    <div class="input-block input-block-radio">
+      <p class="label">Regularity</p>
+      <label for="regularity-yes">yes</label>
+      <input
+        type="radio"
+        id="regularity-yes"
+        value='yes'
+        class="input-radio"
+        formControlName="regularity"
+      />
+      <label for="regularity-no">now</label>
+      <input
+        type="radio"
+        id="regularity-no"
+        value="no"
+        class="input-radio"
+        formControlName="regularity"
+      />
+    </div>
+
+    <select formControlName="category" class="input-select">
+      <option *ngFor="let category of categoriesArr" [ngValue]="category">
+        {{ category.category }}
+      </option>
+    </select>
+
+  </div>
+</form>

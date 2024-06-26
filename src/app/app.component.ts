@@ -2,17 +2,17 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ProjectService } from './project.service';
 import { Observable } from 'rxjs';
 
-interface Project  {
+interface Project {
   name: string;
-  date: string
+  date: string;
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'expense-tracker';
   user!: Project | undefined;
 
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
   projectInfo$!: Observable<Project[]>;
 
   ngOnInit(): void {
-    console.log('onInit')
+    console.log('onInit');
     // this.projectFirebaseService.getProjectInfo().subscribe(info => {
     //   console.log(info)
     // })

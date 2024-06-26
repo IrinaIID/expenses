@@ -3,11 +3,11 @@
 .all-footer {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   border-top: 1px solid $light-color;
   padding: 20px $base-container-horizontal-paddings;
 
-  > .information-footer {
+  .information-footer {
     display: flex;
     gap: 20px;
   }

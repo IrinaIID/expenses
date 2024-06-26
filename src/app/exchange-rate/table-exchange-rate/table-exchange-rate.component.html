@@ -1,0 +1,18 @@
+<table class="all-table">
+  <thead>
+    <tr class="tr-row-head">
+      <th scope="col">#</th>
+      <th scope="col">base</th>
+      <th scope="col">currency</th>
+      <th scope="col">rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tr-row" *ngFor="let rateItem of ratesArr; let index = index">
+      <td>{{ index }}</td>
+      <td>{{ baseCurrency }}</td>
+      <td>{{ rateItem.currency }}</td>
+      <td>{{ rateItem.rate }}</td>
+    </tr>
+  </tbody>
+</table>
