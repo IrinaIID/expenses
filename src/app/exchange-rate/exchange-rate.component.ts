@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ExchangeService } from '../shared/services/exchange.service';
 import { Currency, Rate } from './interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-exchange-rate',
@@ -13,6 +14,7 @@ export class ExchangeRateComponent implements OnInit {
   baseCurrency!: string;
   isCards!: boolean;
   updateTime!: string;
+  subscription!: Subscription;
 
   exchangeService = inject(ExchangeService);
 
@@ -21,7 +23,7 @@ export class ExchangeRateComponent implements OnInit {
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
-    this.exchangeService.getCurrency().subscribe((data) => {
+    this.subscription = this.exchangeService.getCurrency().subscribe((data) => {
       this.currencyData = data;
       this.updateTime = data.time_last_update_utc;
 
@@ -32,6 +34,10 @@ export class ExchangeRateComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   setCardsView(): void {

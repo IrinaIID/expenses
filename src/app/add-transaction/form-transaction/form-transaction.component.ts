@@ -27,12 +27,10 @@ export class FormTransactionComponent implements OnInit{
   }
 
   private addCheckboxes() {
-
     this.subcategoriesFormArray.clear();
     // recheck this comment for me
     // this.subcategoriesFormArray = new Array().fill(new FormControl(false), 0, this.subcategories.length - 1);
     this.subcategories.forEach(() => this.subcategoriesFormArray.push(new FormControl(false)));
-
   }
 
   ngOnInit(): void {
@@ -85,10 +83,8 @@ export class FormTransactionComponent implements OnInit{
         regularity: this.transactionForm.value.regularity,
         category: this.transactionForm.value.category.category,
         subcategories: arrSubcategoriesForTransaction,
-        date: this.transactionForm.value.date
+        date: new Date(this.transactionForm.value.date) || new Date()
       }
-
-      console.log('Form data:', this.transactionForm.value);
 
       this.transactionService.addTransaction(objSendForm);
       

@@ -5,11 +5,12 @@ import { CardsMonthBlockComponent } from './cards-month-block/cards-month-block.
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ExchangeService } from './services/exchange.service';
 import { TransactionFirebaseService } from './services/transaction-firebase.service';
+import { MonthAmountService } from './services/month-amount.service';
 
 @NgModule({
   declarations: [NamePageBlockComponent, CardsMonthBlockComponent],
   imports: [CommonModule, HttpClientModule],
   exports: [NamePageBlockComponent, CardsMonthBlockComponent],
-  providers: [ExchangeService, TransactionFirebaseService, provideHttpClient()],
+  providers: [ExchangeService, TransactionFirebaseService, MonthAmountService, provideHttpClient()],
 })
 export class SharedModule {}

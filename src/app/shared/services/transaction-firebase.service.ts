@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore, QueryFieldFilterConstraint, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { DocumentData, Firestore,  QueryFieldFilterConstraint, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query, where } from '@angular/fire/firestore';
+import { Observable, from} from 'rxjs';
 import { Transaction } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionFirebaseService {
+
+  documents: any[] = [];
 
   firestore = inject(Firestore);
   transactionsCollection = collection(this.firestore, 'transactions');
@@ -20,17 +22,14 @@ export class TransactionFirebaseService {
 
   // in progress 
   async getQueryTransactions(args: QueryFieldFilterConstraint[]) {
-    
-    // const s = where("type", "==", 'income')
+
     const q = query(this.transactionsCollection, ...args);
     const querySnapshot = await getDocs(q);
-    const transactionsArr: DocumentData[] = [];
-    
-    querySnapshot.forEach((doc) => {
-      transactionsArr.push(doc.data())
-      // console.log(doc.id, " => ", doc.data());
-      });
-    return transactionsArr
+
+    this.documents = querySnapshot.docs.map(doc => {
+      return { id: doc.id, ...doc.data() };
+    });
+    return this.documents
 
   }
 
