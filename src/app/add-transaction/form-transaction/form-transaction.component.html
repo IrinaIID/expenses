@@ -20,8 +20,8 @@
     </button>
   </div>
   <h2 class="h2-type-transaction">{{ typeTransaction || null }}</h2>
-  <!-- <div *ngIf="typeTransaction" class="all-form-fields-transaction"> -->
-  <div class="all-form-fields-transaction">
+  <div *ngIf="typeTransaction" class="all-form-fields-transaction">
+  <!-- <div class="all-form-fields-transaction"> -->
     <div class="input-block">
       <label for="title" class="label">Title</label>
       <input
@@ -61,7 +61,7 @@
         class="input-radio"
         formControlName="regularity"
       />
-      <label for="regularity-no">now</label>
+      <label for="regularity-no">no</label>
       <input
         type="radio"
         id="regularity-no"
@@ -71,11 +71,35 @@
       />
     </div>
 
-    <select formControlName="category" class="input-select">
-      <option *ngFor="let category of categoriesArr" [ngValue]="category">
-        {{ category.category }}
-      </option>
-    </select>
+    <div class="input-block">
+      <label for="category" class="label">Category</label>
+      <select formControlName="category" id="category" class="input-select" (change)="setSubcategories()">
+        <option *ngFor="let category of categoriesArr" [ngValue]="category">
+          {{ category.category }}
+        </option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <div class="all-checkboxes-block">
+        <label class="label-checkbox" formArrayName="subcategories" *ngFor="let order of subcategoriesFormArray.controls; let i = index">
+          <input type="checkbox" class="input-checkbox" [formControlName]="i" value="subcategories[i]">
+          {{subcategories[i]}}
+        </label>
+      </div>
+    </div>
+
+    <div class="input-block input-block-date">
+      <label for="date" class="label">Date</label>
+      <input
+        type="date"
+        id="date"
+        class="input input-date"
+        formControlName="date"
+      />
+    </div>
+
+    <button type="submit" class="btn-submit-transaction">Save</button>
 
   </div>
 </form>

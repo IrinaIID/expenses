@@ -4,11 +4,12 @@ import { NamePageBlockComponent } from './name-page-block/name-page-block.compon
 import { CardsMonthBlockComponent } from './cards-month-block/cards-month-block.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ExchangeService } from './services/exchange.service';
+import { TransactionFirebaseService } from './services/transaction-firebase.service';
 
 @NgModule({
   declarations: [NamePageBlockComponent, CardsMonthBlockComponent],
   imports: [CommonModule, HttpClientModule],
   exports: [NamePageBlockComponent, CardsMonthBlockComponent],
-  providers: [ExchangeService, provideHttpClient()],
+  providers: [ExchangeService, TransactionFirebaseService, provideHttpClient()],
 })
 export class SharedModule {}

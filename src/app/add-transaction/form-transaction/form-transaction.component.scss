@@ -8,7 +8,6 @@
 
     .btn-type-transaction {
       width: 100%;
-      font-size: 16px;
       border: none;
       border-radius: $base-border-radius;
       padding: 17px 0;
@@ -43,7 +42,7 @@
     .input-block {
       width: 100%;
       display: flex;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
 
       .label {
         width: 140px;
@@ -53,10 +52,11 @@
 
       .input {
         width: 100%;
-        padding: 12px 17px;
         outline: none;
         border: 1px solid $light-color;
         border-radius: $base-border-radius;
+        padding: 12px 17px;
+        margin-left: 17px;
       }
 
       .input-description {
@@ -67,18 +67,19 @@
       .input-count {
         width: 160px;
       }
+
+      .all-checkboxes-block {
+        margin-left: 140px;
+      }
     }
 
     .input-block-count {
       max-width: 300px;
     }
 
-
     .input-block-radio {
       display: flex;
       align-items: center;
-
-
 
       .input-radio {
         width: 30px;
@@ -87,13 +88,52 @@
         cursor: pointer;
       }
     }
+
+    .input-select {
+      outline: none;
+      width: 400px;
+      height: 40px;
+      border: 1px solid $light-color;
+      border-radius: $base-border-radius;
+    }
+
+    .input-block-date {
+      .input-date {
+        width: 180px;
+        margin-left: 0;
+      }
+    }
+  
+  
+
+    .btn-submit-transaction {
+      max-width: 362px;
+      width: 100%;
+      color: $white-color;
+      background: $accent-color;
+      border: none;
+      border-radius: $base-border-radius;
+      padding: 17px 0;
+      margin-top: 20px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .all-checkboxes-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .label-checkbox {
+          cursor: pointer;
+      }
+
+    }
+
   }
 
-  .input-select {
-    outline: none;
-    width: 100%;
-    height: 40px;
-    border-radius: $base-border-radius;
-
-  }
+  
 }

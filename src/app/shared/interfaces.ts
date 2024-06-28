@@ -12,7 +12,7 @@ export interface Transaction {
   title: string;
   description: string;
   count: number;
-  regularity: boolean;
+  regularity: 'yes' | 'no';
   category: string;
   subcategories: string[];
   date: Date;

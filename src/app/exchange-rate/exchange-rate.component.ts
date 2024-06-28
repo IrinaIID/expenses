@@ -31,9 +31,6 @@ export class ExchangeRateComponent implements OnInit {
           rate: this.currencyData.rates[property],
         });
       }
-
-      // console.log(this.ratesArr);
-      // console.log(this.currencyData)
     });
   }
 
