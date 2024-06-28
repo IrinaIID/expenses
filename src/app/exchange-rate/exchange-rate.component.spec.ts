@@ -8,9 +8,8 @@ describe('ExchangeRateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExchangeRateComponent ]
-    })
-    .compileComponents();
+      declarations: [ExchangeRateComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ExchangeRateComponent);
     component = fixture.componentInstance;

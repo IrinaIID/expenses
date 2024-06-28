@@ -7,11 +7,11 @@
   border-bottom: 1px solid $light-color;
   padding: 20px $base-container-horizontal-paddings;
 
-  > .logo {
+  .logo {
     font-weight: 700;
   }
 
-  > .nav-header {
+  .nav-header {
     display: flex;
     gap: 30px;
   }
