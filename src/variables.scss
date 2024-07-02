@@ -16,3 +16,9 @@ $h2-font-size: 22px;
 
 $base-card-border: 1px solid #e0e0e0;
 $base-border-radius: 8px;
+
+@mixin border-style-input {
+  border-radius: $base-border-radius;
+  border: $base-card-border;
+  outline-color: $accent-color;
+}

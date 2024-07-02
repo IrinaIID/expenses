@@ -33,7 +33,7 @@ export class BalanceComponent implements OnInit {
   refreshTable(queriesArr: QueryFieldFilterConstraint[] = []) {
     this.balanceTableService.getDataTable(this.userId, queriesArr).subscribe((data) => {
       console.log(data);
-      this.dataTable = data;
+      this.dataTable = data.reverse();
     });
   }
 

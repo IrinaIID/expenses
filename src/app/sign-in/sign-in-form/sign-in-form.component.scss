@@ -1,0 +1,39 @@
+@import '../../../variables.scss';
+
+.all-form-sign-in {
+  display: flex;
+  flex-direction: column;
+
+  .h1-sign-in {
+    align-self: center;
+  }
+
+  .label-form-sign-in {
+    color: $primary-color;
+    margin: 20px 0 5px;
+  }
+
+  .input-form-sign-in {
+    @include border-style-input;
+    width: 400px;
+    font-size: 16px;
+    color: $primary-color;
+    padding: 8px 10px;
+  }
+
+  .btn-submit-sign-in {
+    color: $active-btn-toggle-color;
+    background: $accent-color;
+    border: none;
+    border-radius: $base-border-radius;
+    padding: 15px 0;
+    margin: 20px 0 30px;
+    cursor: pointer;
+
+    
+    &:disabled {
+      background: $light-color;
+    }
+  }
+}
+  
