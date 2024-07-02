@@ -1,26 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Transaction, TypeTransaction } from 'src/app/shared/interfaces';
+import { TransactionDraft, TypeTransaction } from 'src/app/shared/interfaces';
 import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../const';
 import { Category } from '../interfaces';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
-
-
 
 @Component({
   selector: 'app-form-transaction',
   templateUrl: './form-transaction.component.html',
   styleUrls: ['./form-transaction.component.scss'],
 })
-export class FormTransactionComponent implements OnInit{
-
-  typeTransaction!: TypeTransaction;
-  categoriesArr!: Category[];
+export class FormTransactionComponent implements OnInit {
+  typeTransaction: TypeTransaction | undefined;
+  categoriesArr!: Category[] | undefined;
   transactionForm!: FormGroup;
   subcategories: string[] = [];
 
   private formBuilder = inject(FormBuilder);
-  private transactionService = inject(TransactionFirebaseService)
+  private transactionService = inject(TransactionFirebaseService);
 
   get subcategoriesFormArray() {
     return this.transactionForm.controls['subcategories'] as FormArray;
@@ -34,63 +31,59 @@ export class FormTransactionComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
     this.transactionForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: '',
-      regularity: [false, Validators.required],
+      regularity: ['no', Validators.required],
       category: ['', Validators.required],
       subcategories: new FormArray([]),
       date: new Date(),
-      count: [null, Validators.required],
+      amount: [null, Validators.required],
     });
   }
 
   setIncomeTypeTransaction(): void {
-    this.transactionForm.setControl('type', new FormControl('income'))
+    this.transactionForm.setControl('type', new FormControl('income'));
     this.typeTransaction = 'income';
     this.subcategoriesFormArray.clear();
     this.categoriesArr = INCOME_CATEGORIES;
   }
 
   setExpenseTypeTransaction(): void {
-    this.transactionForm.setControl('type', new FormControl('expense'))
+    this.transactionForm.setControl('type', new FormControl('expense'));
     this.typeTransaction = 'expense';
     this.subcategoriesFormArray.clear();
     this.categoriesArr = EXPENSES_CATEGORIES;
   }
 
   setSubcategories(): void {
-    this.subcategories = this.transactionForm.value.category.subcategories
+    this.subcategories = this.transactionForm.value.category.subcategories;
     this.addCheckboxes();
   }
 
   submitForm(): void {
     if (this.transactionForm?.valid) {
-
       const arrSubcategories = this.transactionForm.value.subcategories.map((item: boolean | string, index: number) => {
-        return item === true ? item = this.subcategories[index] : item
-      })
+        return item === true ? (item = this.subcategories[index]) : item;
+      });
       const arrSubcategoriesForTransaction = arrSubcategories.filter((item: boolean | string) => item !== false);
 
-      const objSendForm: Transaction = {
-        idTransaction: Date.now(),
+      const objSendForm: TransactionDraft = {
         idUser: 28,
         type: this.transactionForm.value.type,
         title: this.transactionForm.value.title,
         description: this.transactionForm.value.description,
-        count: this.transactionForm.value.count,
+        amount: this.transactionForm.value.amount,
         regularity: this.transactionForm.value.regularity,
         category: this.transactionForm.value.category.category,
         subcategories: arrSubcategoriesForTransaction,
-        date: new Date(this.transactionForm.value.date) || new Date()
-      }
+        date: new Date(this.transactionForm.value.date).getTime() || new Date().getTime(),
+      };
 
       this.transactionService.addTransaction(objSendForm);
-      
+
       this.transactionForm.reset();
       this.typeTransaction = null;
     }
   }
-
 }

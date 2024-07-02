@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MonthAmountService } from '../services/month-amount.service';
+import { MonthAmountService } from './month-amount.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,32 +8,29 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cards-month-block.component.scss'],
 })
 export class CardsMonthBlockComponent implements OnInit {
+  amountMonthIncomes = 0;
+  amountMonthExpenses = 0;
+  amountMonthBalance = 0;
 
-  amountMonthIncomes!: number;
-  amountMonthExpenses!: number;
-  amountMonthBalance!: number;
+  subscriptionIncomes: Subscription | undefined;
+  subscriptionExpenses: Subscription | undefined;
 
-  subscriptionIncomes!: Subscription;
-  subscriptionExpenses!: Subscription;
-
-  private monthAmountService = inject(MonthAmountService)
+  private monthAmountService = inject(MonthAmountService);
 
   ngOnInit(): void {
-    
     this.subscriptionIncomes = this.monthAmountService.getMonthIncomes().subscribe((amount: number) => {
       this.amountMonthIncomes = amount;
-      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses
+      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
     });
- 
+
     this.subscriptionExpenses = this.monthAmountService.getMonthExpenses().subscribe((amount: number) => {
       this.amountMonthExpenses = amount;
-      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses
-    })
+      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
+    });
   }
 
-  ngOnDEstroy() {
-    this.subscriptionIncomes.unsubscribe();
-    this.subscriptionExpenses.unsubscribe()
-  }
-
+  // ngOnDEstroy() {
+  //   if(this.subscriptionIncomes) this.subscriptionIncomes.unsubscribe();
+  //   if(this.subscriptionExpenses) this.subscriptionExpenses.unsubscribe()
+  // }
 }

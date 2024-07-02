@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NamePageBlockComponent implements OnInit {
   @Input() namePage!: string;
-  currentDate!: string;
+  currentDate: string | undefined;
   name = 'Irina';
   dateCreation = '2024/06/18';
 

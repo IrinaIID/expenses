@@ -1,42 +1,43 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore,  QueryFieldFilterConstraint, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query, where } from '@angular/fire/firestore';
-import { Observable, from} from 'rxjs';
-import { Transaction } from '../interfaces';
+import {
+  Firestore,
+  QueryFieldFilterConstraint,
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+} from '@angular/fire/firestore';
+import { Observable, from } from 'rxjs';
+import { Transaction, TransactionDraft } from '../interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TransactionFirebaseService {
-
-  documents: any[] = [];
-
   firestore = inject(Firestore);
   transactionsCollection = collection(this.firestore, 'transactions');
 
-  getAllTransactions(): Observable<Object> {
+  getAllTransactions(): Observable<Transaction[]> {
     return collectionData(this.transactionsCollection, {
-      idField: 'id',
-    }) as Observable<Object[]>;
+      idField: 'idTransaction',
+    }) as Observable<Transaction[]>;
   }
 
-
-  // in progress 
   async getQueryTransactions(args: QueryFieldFilterConstraint[]) {
-
-    const q = query(this.transactionsCollection, ...args);
+    const q = query(this.transactionsCollection, orderBy('date'), orderBy('amount'), ...args);
     const querySnapshot = await getDocs(q);
 
-    this.documents = querySnapshot.docs.map(doc => {
+    return querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
-    return this.documents
-
   }
 
-  addTransaction(object: Transaction): Observable<string> {
-    const promise = addDoc(this.transactionsCollection, object).then(
-      (response) => response.id
-    );
+  addTransaction(object: TransactionDraft): Observable<string> {
+    const promise = addDoc(this.transactionsCollection, object).then((response) => response.id);
     return from(promise);
   }
 
@@ -45,5 +46,4 @@ export class TransactionFirebaseService {
     const promise = deleteDoc(docRef);
     return from(promise);
   }
-
 }

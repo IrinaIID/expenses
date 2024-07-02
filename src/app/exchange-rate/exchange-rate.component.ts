@@ -9,12 +9,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./exchange-rate.component.scss'],
 })
 export class ExchangeRateComponent implements OnInit {
-  currencyData!: Currency;
+  currencyData: Currency | undefined;
   ratesArr: Rate[] = [];
   baseCurrency!: string;
-  isCards!: boolean;
-  updateTime!: string;
-  subscription!: Subscription;
+  isCards: boolean | undefined;
+  updateTime: string | undefined;
+  subscription: Subscription | undefined;
 
   exchangeService = inject(ExchangeService);
 
@@ -37,7 +37,7 @@ export class ExchangeRateComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   setCardsView(): void {

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BalanceComponent } from './balance/balance.component';
 
 const routes: Routes = [
-  { path: '', component: BalanceComponent },
+  { path: 'balance', loadChildren: () => import('./balance/balance.module').then((m) => m.BalanceModule) },
   {
     path: 'sign-in',
     loadChildren: () => import('./sign-in/sign-in-routing.module').then((m) => m.SignInRoutingModule),

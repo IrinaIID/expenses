@@ -14,5 +14,13 @@
   .nav-header {
     display: flex;
     gap: 30px;
+
+    .nav-link {
+      text-decoration: none;
+    }
   }
+}
+
+.nav-active-rout {
+  color: $accent-color;
 }

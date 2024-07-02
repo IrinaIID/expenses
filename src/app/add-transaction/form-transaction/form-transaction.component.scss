@@ -64,7 +64,7 @@
         resize: none;
       }
 
-      .input-count {
+      .input-amount {
         width: 160px;
       }
 
@@ -73,7 +73,7 @@
       }
     }
 
-    .input-block-count {
+    .input-block-amount {
       max-width: 300px;
     }
 
@@ -103,8 +103,6 @@
         margin-left: 0;
       }
     }
-  
-  
 
     .btn-submit-transaction {
       max-width: 362px;
@@ -128,12 +126,8 @@
       gap: 10px;
 
       .label-checkbox {
-          cursor: pointer;
+        cursor: pointer;
       }
-
     }
-
   }
-
-  
 }

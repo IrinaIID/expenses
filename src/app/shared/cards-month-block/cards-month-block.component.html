@@ -8,7 +8,13 @@
       <p class="name-card-month">Month expenses</p>
       <p class="p-amount">{{ amountMonthExpenses | currency }}</p>
     </div>
-    <div [ngClass]="amountMonthBalance >= 0 ? 'month-card border-positive-balance' : 'month-card border-negative-balance'">
+    <div
+      [ngClass]="
+        amountMonthBalance >= 0
+          ? 'month-card border-positive-balance'
+          : 'month-card border-negative-balance'
+      "
+    >
       <p class="name-card-month">Month balance</p>
       <p class="p-amount">{{ amountMonthBalance | currency }}</p>
     </div>

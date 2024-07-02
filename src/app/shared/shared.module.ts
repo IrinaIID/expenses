@@ -5,12 +5,24 @@ import { CardsMonthBlockComponent } from './cards-month-block/cards-month-block.
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ExchangeService } from './services/exchange.service';
 import { TransactionFirebaseService } from './services/transaction-firebase.service';
-import { MonthAmountService } from './services/month-amount.service';
+import { MonthAmountService } from './cards-month-block/month-amount.service';
+import { TableDataComponent } from './table-data/table-data.component';
+import { BalanceTableService } from './table-data/balance-table.service';
+import { UserService } from './services/user.service';
+import { TableControlComponent } from './table-control/table-control.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [NamePageBlockComponent, CardsMonthBlockComponent],
-  imports: [CommonModule, HttpClientModule],
-  exports: [NamePageBlockComponent, CardsMonthBlockComponent],
-  providers: [ExchangeService, TransactionFirebaseService, MonthAmountService, provideHttpClient()],
+  declarations: [NamePageBlockComponent, CardsMonthBlockComponent, TableDataComponent, TableControlComponent],
+  imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+  exports: [NamePageBlockComponent, CardsMonthBlockComponent, TableDataComponent, TableControlComponent],
+  providers: [
+    ExchangeService,
+    TransactionFirebaseService,
+    MonthAmountService,
+    BalanceTableService,
+    UserService,
+    provideHttpClient(),
+  ],
 })
 export class SharedModule {}

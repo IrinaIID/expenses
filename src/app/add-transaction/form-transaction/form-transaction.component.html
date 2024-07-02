@@ -21,7 +21,7 @@
   </div>
   <h2 class="h2-type-transaction">{{ typeTransaction || null }}</h2>
   <div *ngIf="typeTransaction" class="all-form-fields-transaction">
-  <!-- <div class="all-form-fields-transaction"> -->
+    <!-- <div class="all-form-fields-transaction"> -->
     <div class="input-block">
       <label for="title" class="label">Title</label>
       <input
@@ -41,13 +41,13 @@
       ></textarea>
     </div>
 
-    <div class="input-block input-block-count">
-      <label for="count" class="label">Count</label>
+    <div class="input-block input-block-amount">
+      <label for="amount" class="label">amount</label>
       <input
         type="number"
-        id="count"
-        class="input input-count"
-        formControlName="count"
+        id="amount"
+        class="input input-amount"
+        formControlName="amount"
       />
     </div>
 
@@ -57,7 +57,7 @@
       <input
         type="radio"
         id="regularity-yes"
-        value='yes'
+        value="yes"
         class="input-radio"
         formControlName="regularity"
       />
@@ -73,7 +73,12 @@
 
     <div class="input-block">
       <label for="category" class="label">Category</label>
-      <select formControlName="category" id="category" class="input-select" (change)="setSubcategories()">
+      <select
+        formControlName="category"
+        id="category"
+        class="input-select"
+        (change)="setSubcategories()"
+      >
         <option *ngFor="let category of categoriesArr" [ngValue]="category">
           {{ category.category }}
         </option>
@@ -82,9 +87,21 @@
 
     <div class="input-block">
       <div class="all-checkboxes-block">
-        <label class="label-checkbox" formArrayName="subcategories" *ngFor="let order of subcategoriesFormArray.controls; let i = index">
-          <input type="checkbox" class="input-checkbox" [formControlName]="i" value="subcategories[i]">
-          {{subcategories[i]}}
+        <label
+          class="label-checkbox"
+          formArrayName="subcategories"
+          *ngFor="
+            let subcategory of subcategoriesFormArray.controls;
+            let i = index
+          "
+        >
+          <input
+            type="checkbox"
+            class="input-checkbox"
+            [formControlName]="i"
+            value="subcategories[i]"
+          />
+          {{ subcategories[i] }}
         </label>
       </div>
     </div>
@@ -100,6 +117,5 @@
     </div>
 
     <button type="submit" class="btn-submit-transaction">Save</button>
-
   </div>
 </form>

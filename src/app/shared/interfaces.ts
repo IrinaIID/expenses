@@ -6,16 +6,22 @@ export interface User {
 }
 
 export interface Transaction {
-  idTransaction: number;
+  id: string;
   idUser: number;
   type: TypeTransaction;
   title: string;
   description: string;
-  count: number;
+  amount: number;
   regularity: 'yes' | 'no';
   category: string;
   subcategories: string[];
-  date: Date;
+  date: number;
+}
+
+export type TransactionDraft = Omit<Transaction, 'id'>;
+
+export interface BalanceTableData extends Omit<Transaction, 'idUser' | 'date'> {
+  date: string;
 }
 
 export type TypeTransaction = 'income' | 'expense' | null;
