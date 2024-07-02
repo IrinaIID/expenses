@@ -1,15 +1,36 @@
-<form class="all-form-create-account" [formGroup]="userFormCreateAccount" (ngSubmit)="submitForm()" (input)="validateForm()">
+<form
+  class="all-form-create-account"
+  [formGroup]="userFormCreateAccount"
+  (ngSubmit)="submitForm()"
+  (input)="validateForm()"
+>
   <h1 class="h1-create-account">Create an account</h1>
 
   <label for="name" class="label-form-create-account">Name</label>
-  <input type="text" id="name" class="input-form-create-account" formControlName="name">
+  <input
+    type="text"
+    id="name"
+    class="input-form-create-account"
+    formControlName="name"
+  />
 
   <label for="email" class="label-form-create-account">Email</label>
-  <input type="email" id="email" class="input-form-create-account" formControlName="email">
+  <input
+    type="email"
+    id="email"
+    class="input-form-create-account"
+    formControlName="email"
+  />
 
   <label for="password" class="label-form-create-account">Password</label>
-  <input type="password" id="password" class="input-form-create-account" formControlName="password">
+  <input
+    type="password"
+    id="password"
+    class="input-form-create-account"
+    formControlName="password"
+  />
 
-  <button type="submit" class="btn-submit-create-account" [disabled]="!isValid">Submit</button>
-
+  <button type="submit" class="btn-submit-create-account" [disabled]="!isValid">
+    Submit
+  </button>
 </form>

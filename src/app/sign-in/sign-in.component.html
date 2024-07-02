@@ -1,7 +1,7 @@
 <div class="all-sign-in-page">
   <app-sign-in-form *ngIf="isSignIn"></app-sign-in-form>
   <app-create-account-form *ngIf="!isSignIn"></app-create-account-form>
-  <a class="link-to-create-account" (click)="toggleForm()">{{ isSignIn? 'Create an account' : 'I already have an account. Sign in'}}</a>
+  <a class="link-to-create-account" (click)="toggleForm()">{{
+    isSignIn ? 'Create an account' : 'I already have an account. Sign in'
+  }}</a>
 </div>
-
-

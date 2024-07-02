@@ -6,12 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
-
-  isSignIn: boolean = true;
+  isSignIn = true;
 
   toggleForm() {
-    this.isSignIn = !this.isSignIn
+    this.isSignIn = !this.isSignIn;
   }
-
-
 }
