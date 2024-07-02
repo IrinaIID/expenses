@@ -1,0 +1,72 @@
+@import '../../../variables.scss';
+
+@mixin inputs-style {
+  background: none;
+  border: 1px solid $light-color;
+  border-radius: $base-border-radius;
+  outline: none;
+  padding: 5px 10px;
+}
+
+.all-controlls-block {
+  margin-top: 80px;
+  border-top: 1px solid $light-color;
+  border-bottom: 1px solid $light-color;
+  padding: 20px 0;
+
+  .all-form-queies {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+    align-items: center;
+
+    .input-search-control {
+      @include inputs-style;
+    }
+
+    .dete-control-block {
+      display: flex;
+
+      .date-control {
+        display: flex;
+        align-items: center;
+      }
+
+      .input-date {
+        @include inputs-style;
+        color: $primary-color;
+      }
+    }
+
+    .select-control {
+      @include inputs-style;
+
+      color: $primary-color;
+    }
+
+    .select-control-type {
+      width: 120px;
+    }
+
+    .option {
+      color: $primary-color;
+    }
+
+    .label-control {
+      color: $primary-color;
+      font-weight: 700;
+      margin: 0 6px;
+    }
+
+    .btn-clean-input-data {
+      font-weight: 700;
+      color: $primary-color;
+      background: none;
+      border: none;
+      margin-left: 2px;
+      cursor: pointer;
+    }
+  }
+}

@@ -8,9 +8,8 @@ describe('NamePageBlockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NamePageBlockComponent ]
-    })
-    .compileComponents();
+      declarations: [NamePageBlockComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NamePageBlockComponent);
     component = fixture.componentInstance;

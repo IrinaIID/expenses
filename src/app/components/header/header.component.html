@@ -1,10 +1,35 @@
 <div class="all-header">
   <div class="logo">Balance tracker</div>
   <nav class="nav-header">
-    <a [routerLink]="['']">Balance</a>
-    <a [routerLink]="['add-transaction']">New transaction</a>
-    <a [routerLink]="['statisrics']">Statisrics</a>
-    <a [routerLink]="['exchange-rate']">Exchange rate</a>
-    <a [routerLink]="['sign-in']">Sign in</a>
+    <a
+      class="nav-link"
+      routerLinkActive="nav-active-rout"
+      [routerLink]="['balance']"
+      >Balance</a
+    >
+    <a
+      class="nav-link"
+      routerLinkActive="nav-active-rout"
+      [routerLink]="['add-transaction']"
+      >New transaction</a
+    >
+    <a
+      class="nav-link"
+      routerLinkActive="nav-active-rout"
+      [routerLink]="['statisrics']"
+      >Statistics</a
+    >
+    <a
+      class="nav-link"
+      routerLinkActive="nav-active-rout"
+      [routerLink]="['exchange-rate']"
+      >Exchange rate</a
+    >
+    <a
+      class="nav-link"
+      routerLinkActive="nav-active-rout"
+      [routerLink]="['sign-in']"
+      >Sign in</a
+    >
   </nav>
 </div>
