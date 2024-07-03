@@ -19,6 +19,11 @@ export class BalanceComponent implements OnInit {
 
   userId = this.userService.getUserId();
 
+  isModal = false;
+  isAgreedDelete = false;
+  idTransactionDeleted: string | undefined;
+
+  queriesTable: QueryFieldFilterConstraint[] = [];
   dataKeys: (keyof BalanceTableData)[] = [
     'date',
     'type',
@@ -38,16 +43,32 @@ export class BalanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.refreshTable();
+    this.refreshTable(this.queriesTable);
   }
 
-  deleteTransaction($event: BalanceTableData) {
-    console.log($event.id);
-    this.transactionFirebaseServise.removeTransaction($event.id);
-    this.refreshTable();
+  emitDeleteAction($event: BalanceTableData) {
+    this.idTransactionDeleted = $event.id;
+    this.isModal = true;
+  }
+
+  deleteTransaction(idTransaction: string) {
+    this.transactionFirebaseServise.removeTransaction(idTransaction);
+    this.refreshTable(this.queriesTable);
   }
 
   setQueries($event: QueryFieldFilterConstraint[]) {
-    this.refreshTable($event);
+    this.queriesTable = $event;
+    this.refreshTable(this.queriesTable);
+  }
+
+  checkModalMessage($event: boolean) {
+    if ($event && this.idTransactionDeleted) {
+      this.deleteTransaction(this.idTransactionDeleted);
+      this.refreshTable(this.queriesTable);
+      this.isModal = false;
+    } else {
+      this.isModal = false;
+      this.idTransactionDeleted = undefined;
+    }
   }
 }
