@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TableDataComponent<T = any> {
   @Input() dataKeys!: (keyof T)[];
-  @Input() dataTable!: T[];
+  @Input() dataTable!: T[] | null;
 
   @Output() idDeleteEvent = new EventEmitter<T>();
 

@@ -7,7 +7,9 @@ import { Currency } from 'src/app/exchange-rate/interfaces';
   providedIn: 'root',
 })
 export class ExchangeService {
+
   private http = inject(HttpClient);
+  
   private baseCurrency = 'EUR';
 
   getCurrency(): Observable<Currency> {

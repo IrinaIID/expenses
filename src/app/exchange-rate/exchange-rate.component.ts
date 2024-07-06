@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ExchangeService } from '../shared/services/exchange.service';
 import { Currency, Rate } from './interfaces';
-import { Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-exchange-rate',
@@ -9,35 +10,45 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./exchange-rate.component.scss'],
 })
 export class ExchangeRateComponent implements OnInit {
-  currencyData: Currency | undefined;
+
+  private exchangeService = inject(ExchangeService);
+
+  currencyData: Currency | undefined | any;
   ratesArr: Rate[] = [];
   baseCurrency!: string;
   isCards: boolean | undefined;
   updateTime: string | undefined;
-  subscription: Subscription | undefined;
 
-  exchangeService = inject(ExchangeService);
+  authService = inject(AuthService);
+
+  isAuth: boolean = false;
+  rates!: Observable<any>
+
 
   ngOnInit(): void {
-    sessionStorage.getItem('isCards') === 'false' ? (this.isCards = false) : (this.isCards = true);
+
+    this.authService.getUser().subscribe(data => this.isAuth = !!data?.uid);
+
+    this.isCards = sessionStorage.getItem('isCards') === 'true';
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
-    this.subscription = this.exchangeService.getCurrency().subscribe((data) => {
-      this.currencyData = data;
-      this.updateTime = data.time_last_update_utc;
+    this.rates = this.exchangeService.getCurrency()
+      .pipe(map((data) => {
+        this.updateTime = data.time_last_update_utc;
+        this.currencyData = data.rates;
+        const arrRates = []
 
-      for (const property in this.currencyData.rates) {
-        this.ratesArr.push({
-          currency: property,
-          rate: this.currencyData.rates[property],
-        });
-      }
-    });
-  }
+        for (const property in this.currencyData) {
+          arrRates.push({
+            currency: property,
+            rate: this.currencyData[property],
+          });
+        }
+        return  arrRates
+      }));
 
-  ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.rates.subscribe();
   }
 
   setCardsView(): void {

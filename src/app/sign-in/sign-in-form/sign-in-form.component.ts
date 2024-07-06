@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -7,10 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent implements OnInit {
-  userFormSignIn!: FormGroup;
-  isValid = false;
 
   private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  userFormSignIn!: FormGroup;
+  isValid = false;
+  errorMessage: string | null = null;
 
   ngOnInit(): void {
     this.userFormSignIn = this.formBuilder.group({
@@ -28,6 +34,20 @@ export class SignInFormComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.userFormSignIn.value);
+    if (this.isValid) {
+      const rawForm = this.userFormSignIn.getRawValue();
+      this.authService
+        .login(rawForm.email, rawForm.password)
+        .subscribe({
+          next: () => {
+            this.router.navigateByUrl('/');
+          },
+          error: (err) => {
+            this.errorMessage = err.code.toString().slice(5);
+          }
+        }
+    )
+    }
   }
+
 }

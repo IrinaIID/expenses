@@ -1,6 +1,6 @@
 <form
   class="all-form-create-account"
-  [formGroup]="userFormCreateAccount"
+  [formGroup]="userForm"
   (ngSubmit)="submitForm()"
   (input)="validateForm()"
 >
@@ -29,6 +29,8 @@
     class="input-form-create-account"
     formControlName="password"
   />
+
+  <p>{{ errorMessage }}</p>
 
   <button type="submit" class="btn-submit-create-account" [disabled]="!isValid">
     Submit

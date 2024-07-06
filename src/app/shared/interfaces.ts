@@ -1,13 +1,27 @@
-export interface User {
-  idUser: number;
-  name: string;
+export interface UserFire {
+  uid: string;
   email: string;
-  password: string;
+  displayName: string;
+  photoURL: string;
+  emailVerified: boolean;
+}
+
+export interface UserFire {
+  uid: string;
+  email: string;
+  displayName: string;
+  photoURL: string;
+  emailVerified: boolean;
+}
+
+export interface UserFB {
+  name: string,
+  email: string
 }
 
 export interface Transaction {
   id: string;
-  idUser: number;
+  idUser: string;
   type: TypeTransaction;
   title: string;
   description: string;

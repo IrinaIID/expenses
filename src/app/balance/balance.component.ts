@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BalanceTableData } from '../shared/interfaces';
-import { UserService } from '../shared/services/user.service';
 import { BalanceTableService } from '../shared/table-data/balance-table.service';
 import { QueryFieldFilterConstraint } from '@angular/fire/firestore';
 import { TransactionFirebaseService } from '../shared/services/transaction-firebase.service';
+import { AuthService } from '../auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-balance',
@@ -11,14 +12,13 @@ import { TransactionFirebaseService } from '../shared/services/transaction-fireb
   styleUrls: ['./balance.component.scss'],
 })
 export class BalanceComponent implements OnInit {
-  dataTable!: BalanceTableData[];
-
-  private userService = inject(UserService);
   private balanceTableService = inject(BalanceTableService);
   private transactionFirebaseServise = inject(TransactionFirebaseService);
+  private authService = inject(AuthService);
 
-  userId = this.userService.getUserId();
+  private ngUnsubscribe$ = new Subject<void>();
 
+  dataTable!: BalanceTableData[];
   isModal = false;
   isAgreedDelete = false;
   idTransactionDeleted: string | undefined;
@@ -34,34 +34,49 @@ export class BalanceComponent implements OnInit {
     'subcategories',
     'description',
   ];
-
-  refreshTable(queriesArr: QueryFieldFilterConstraint[] = []) {
-    this.balanceTableService.getDataTable(this.userId, queriesArr).subscribe((data) => {
-      console.log(data);
-      this.dataTable = data.reverse();
-    });
+  
+  refreshTable(queriesArr: QueryFieldFilterConstraint[] = []): void {
+    this.balanceTableService.getDataTable(queriesArr)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((data) => {
+        console.log(data);
+        this.dataTable = data.reverse();
+      });
   }
 
   ngOnInit(): void {
-    this.refreshTable(this.queriesTable);
+
+    console.log(this.authService.getUser())
+
+    this.balanceTableService.authUpdate$.subscribe(() => {
+      this.refreshTable(this.queriesTable);
+    })
   }
 
-  emitDeleteAction($event: BalanceTableData) {
+  ngOnDestroy() {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+    this.ngUnsubscribe$.unsubscribe();
+  }
+
+  emitDeleteAction($event: BalanceTableData): void {
     this.idTransactionDeleted = $event.id;
     this.isModal = true;
+    this.refreshTable(this.queriesTable);
+
   }
 
-  deleteTransaction(idTransaction: string) {
+  deleteTransaction(idTransaction: string): void {
     this.transactionFirebaseServise.removeTransaction(idTransaction);
     this.refreshTable(this.queriesTable);
   }
 
-  setQueries($event: QueryFieldFilterConstraint[]) {
+  setQueries($event: QueryFieldFilterConstraint[]): void {
     this.queriesTable = $event;
     this.refreshTable(this.queriesTable);
   }
 
-  checkModalMessage($event: boolean) {
+  checkModalMessage($event: boolean): void {
     if ($event && this.idTransactionDeleted) {
       this.deleteTransaction(this.idTransactionDeleted);
       this.refreshTable(this.queriesTable);

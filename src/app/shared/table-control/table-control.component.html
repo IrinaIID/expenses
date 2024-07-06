@@ -4,13 +4,13 @@
     class="all-form-queies"
     (change)="setQueries()"
   >
-    <input
+    <!-- <input
       type="text"
       class="input-search-control"
       placeholder="Search"
       (change)="filterSearch()"
       formControlName="search"
-    />
+    /> -->
 
     <div class="dete-control-block">
       <div class="date-control">
@@ -57,10 +57,10 @@
         <option value="expense" class="option option-type" ngValue="expense">
           expense
         </option>
-        <option value="all" class="option option-type" ngValue="all">
-          all
-        </option>
       </select>
+      <button class="btn-clean-input-data" (click)="cleanInputData('type')">
+        X
+      </button>
     </div>
 
     <div class="category-control-block">
@@ -75,7 +75,6 @@
       >
         <option
           *ngFor="let category of allCategories"
-          value="category"
           class="option option-category"
           [ngValue]="category"
         >

@@ -1,5 +1,5 @@
 <div class="all-page-exchange-rate">
-  <div class="guest-block">
+  <div *ngIf="!isAuth" class="guest-block">
     <h1 class="h1-text-guest">
       Welcome to <span class="span-highlight">Expense tracker! </span><br />
       For getting more functionality please
@@ -34,7 +34,7 @@
       <ng-template #contentCards>
         <div class="all-cards-block">
           <app-card-exchange-rate
-            *ngFor="let rateItem of ratesArr"
+            *ngFor="let rateItem of rates | async"
             [baseCurrency]="baseCurrency"
             [currency]="rateItem.currency"
             [rate]="rateItem.rate"
@@ -44,7 +44,7 @@
       <ng-template #contentTable>
         <div class="all-table-block">
           <app-table-exchange-rate
-            [ratesArr]="ratesArr"
+            [ratesArr]="rates | async"
             [baseCurrency]="baseCurrency"
           ></app-table-exchange-rate>
         </div>

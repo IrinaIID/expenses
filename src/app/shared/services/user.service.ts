@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
-  userId = 28;
+  user: {email: string, name: string} | null = null;
 
-  getUserId() {
-    return this.userId;
-  }
+  // getUserId(): UserFire | null |number {
+  //   return this.user;
+  // }
+
 }

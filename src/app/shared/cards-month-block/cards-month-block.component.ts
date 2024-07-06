@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MonthAmountService } from './month-amount.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-cards-month-block',
@@ -8,29 +8,39 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cards-month-block.component.scss'],
 })
 export class CardsMonthBlockComponent implements OnInit {
-  amountMonthIncomes = 0;
-  amountMonthExpenses = 0;
-  amountMonthBalance = 0;
-
-  subscriptionIncomes: Subscription | undefined;
-  subscriptionExpenses: Subscription | undefined;
 
   private monthAmountService = inject(MonthAmountService);
 
-  ngOnInit(): void {
-    this.subscriptionIncomes = this.monthAmountService.getMonthIncomes().subscribe((amount: number) => {
-      this.amountMonthIncomes = amount;
-      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
-    });
+  amountMonthIncomes = 0;
+  amountMonthExpenses = 0;
+  amountMonthBalance = 0;
+  private ngUnsubscribe$ = new Subject<void>();
 
-    this.subscriptionExpenses = this.monthAmountService.getMonthExpenses().subscribe((amount: number) => {
-      this.amountMonthExpenses = amount;
-      this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
-    });
+
+  ngOnInit(): void {
+
+    this.monthAmountService.authUpdate$
+    .pipe(takeUntil(this.ngUnsubscribe$))
+    .subscribe(() => {
+      this.monthAmountService.getMonthIncomes()
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((amount: number) => {
+        this.amountMonthIncomes = amount;
+        this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
+      });
+
+      this.monthAmountService.getMonthExpenses()
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((amount: number) => {
+          this.amountMonthExpenses = amount;
+          this.amountMonthBalance = this.amountMonthIncomes - this.amountMonthExpenses;
+      });
+    })
   }
 
-  // ngOnDEstroy() {
-  //   if(this.subscriptionIncomes) this.subscriptionIncomes.unsubscribe();
-  //   if(this.subscriptionExpenses) this.subscriptionExpenses.unsubscribe()
-  // }
+  ngOnDEstroy() {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+    this.ngUnsubscribe$.unsubscribe();
+  }
 }

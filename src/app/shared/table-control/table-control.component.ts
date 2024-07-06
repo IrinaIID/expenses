@@ -9,6 +9,9 @@ import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/
   styleUrls: ['./table-control.component.scss'],
 })
 export class TableControlComponent implements OnInit {
+
+  private formBuilder = inject(FormBuilder);
+
   allCategories: string[] = [
     ...EXPENSES_CATEGORIES.map((item) => item.category),
     ...INCOME_CATEGORIES.map((item) => item.category),
@@ -16,9 +19,6 @@ export class TableControlComponent implements OnInit {
 
   allSortOptions: string[] = ['date', 'type', 'amount', 'regularity', 'title', 'category'];
   queriesForm!: FormGroup;
-
-  private formBuilder = inject(FormBuilder);
-
   allQueries: QueryFieldFilterConstraint[] = [];
 
   @Output() queryEvent = new EventEmitter<QueryFieldFilterConstraint[]>();
@@ -67,10 +67,6 @@ export class TableControlComponent implements OnInit {
 
     if (this.queriesForm.value.type === 'expense') {
       this.allQueries.push(where('type', '==', 'expense'));
-    }
-
-    if (this.queriesForm.value.type === 'all') {
-      this.queriesForm.get('type')?.reset();
     }
 
     this.filterSearch();

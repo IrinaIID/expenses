@@ -4,6 +4,8 @@ import { TransactionDraft, TypeTransaction } from 'src/app/shared/interfaces';
 import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../const';
 import { Category } from '../interfaces';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
+import { AuthService } from 'src/app/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-form-transaction',
@@ -11,13 +13,19 @@ import { TransactionFirebaseService } from 'src/app/shared/services/transaction-
   styleUrls: ['./form-transaction.component.scss'],
 })
 export class FormTransactionComponent implements OnInit {
-  typeTransaction: TypeTransaction | undefined;
-  categoriesArr!: Category[] | undefined;
-  transactionForm!: FormGroup;
-  subcategories: string[] = [];
 
   private formBuilder = inject(FormBuilder);
   private transactionService = inject(TransactionFirebaseService);
+  private authService = inject(AuthService);
+
+  typeTransaction: TypeTransaction | undefined;
+  categoriesArr!: Category[] | undefined;
+  transactionForm!: FormGroup;  private ngUnsubscribe$ = new Subject<void>();
+
+  subcategories: string[] = [];
+  userId!: string;
+
+
 
   get subcategoriesFormArray() {
     return this.transactionForm.controls['subcategories'] as FormArray;
@@ -31,6 +39,7 @@ export class FormTransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.transactionForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: '',
@@ -40,6 +49,19 @@ export class FormTransactionComponent implements OnInit {
       date: new Date(),
       amount: [null, Validators.required],
     });
+
+    this.authService.getUser()
+    .pipe(takeUntil(this.ngUnsubscribe$))
+    .subscribe((data) => {
+      if (data?.uid) this.userId = data.uid;
+      console.log(data?.uid)
+    });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+    this.ngUnsubscribe$.unsubscribe();
   }
 
   setIncomeTypeTransaction(): void {
@@ -69,7 +91,7 @@ export class FormTransactionComponent implements OnInit {
       const arrSubcategoriesForTransaction = arrSubcategories.filter((item: boolean | string) => item !== false);
 
       const objSendForm: TransactionDraft = {
-        idUser: 28,
+        idUser: this.userId,
         type: this.transactionForm.value.type,
         title: this.transactionForm.value.title,
         description: this.transactionForm.value.description,
@@ -79,6 +101,8 @@ export class FormTransactionComponent implements OnInit {
         subcategories: arrSubcategoriesForTransaction,
         date: new Date(this.transactionForm.value.date).getTime() || new Date().getTime(),
       };
+
+      console.log(objSendForm)
 
       this.transactionService.addTransaction(objSendForm);
 

@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'balance', loadChildren: () => import('./balance/balance.module').then((m) => m.BalanceModule) },
+  { path: 'balance',
+    loadChildren: () => import('./balance/balance.module').then((m) => m.BalanceModule), 
+    canActivate: [AuthGuard] 
+  },
   {
     path: 'sign-in',
     loadChildren: () => import('./sign-in/sign-in-routing.module').then((m) => m.SignInRoutingModule),
@@ -15,10 +19,12 @@ const routes: Routes = [
     path: 'add-transaction',
     loadChildren: () =>
       import('./add-transaction/add-transaction-routing.module').then((m) => m.AddTransactionRoutingModule),
+      canActivate: [AuthGuard]
   },
   {
-    path: 'statisrics',
+    path: 'statistics',
     loadChildren: () => import('./statistics/statistics-routing.module').then((m) => m.StatisticsRoutingModule),
+    canActivate: [AuthGuard]
   },
 ];
 

@@ -1,19 +1,38 @@
 import { Injectable, inject } from '@angular/core';
 import { TransactionFirebaseService } from '../services/transaction-firebase.service';
 import { QueryFieldFilterConstraint, where } from '@angular/fire/firestore';
-import { Observable, from, map } from 'rxjs';
+import { BehaviorSubject, Observable, from, map } from 'rxjs';
 import { BalanceTableData, Transaction } from '../interfaces';
+import { AuthService } from 'src/app/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BalanceTableService {
-  dataTable: Observable<Transaction[]> | undefined;
 
   private transactionService = inject(TransactionFirebaseService);
+  private authService = inject(AuthService);
+  private authUpdateSubject = new BehaviorSubject<void>(undefined);
+  authUpdate$ = this.authUpdateSubject.asObservable();
 
-  getDataTable(idUser: number, queriesArr: QueryFieldFilterConstraint[] = []) {
-    const snapShot = this.transactionService.getQueryTransactions([where('idUser', '==', idUser), ...queriesArr]);
+  dataTable: Observable<Transaction[]> | undefined;
+
+  userId!: string;
+
+  constructor() { 
+    this.authService.getUser()
+    .subscribe((data) => {
+      if (data?.uid) this.userId = data.uid;
+      this.authUpdateSubject.next()
+      console.log(data?.uid)
+    });
+  }
+
+  getDataTable(queriesArr: QueryFieldFilterConstraint[] = []) {
+
+    console.log(this.userId)
+
+    const snapShot = this.transactionService.getQueryTransactions([where('idUser', '==', this.userId), ...queriesArr]);
     this.dataTable = from(snapShot) as Observable<Transaction[]>;
 
     return this.dataTable.pipe(

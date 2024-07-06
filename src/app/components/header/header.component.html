@@ -2,21 +2,24 @@
   <div class="logo">Balance tracker</div>
   <nav class="nav-header">
     <a
+      *ngIf="isAuth"
       class="nav-link"
       routerLinkActive="nav-active-rout"
       [routerLink]="['balance']"
       >Balance</a
     >
     <a
+      *ngIf="isAuth"
       class="nav-link"
       routerLinkActive="nav-active-rout"
       [routerLink]="['add-transaction']"
       >New transaction</a
     >
     <a
+      *ngIf="isAuth"
       class="nav-link"
       routerLinkActive="nav-active-rout"
-      [routerLink]="['statisrics']"
+      [routerLink]="['statistics']"
       >Statistics</a
     >
     <a
@@ -26,10 +29,18 @@
       >Exchange rate</a
     >
     <a
+      *ngIf="!isAuth"
       class="nav-link"
       routerLinkActive="nav-active-rout"
       [routerLink]="['sign-in']"
       >Sign in</a
     >
+    <a
+    *ngIf="isAuth"
+    class="nav-link"
+    [routerLink]="['exchange-rate']"
+    (click)="logout()"
+    >Log out</a
+  >
   </nav>
 </div>

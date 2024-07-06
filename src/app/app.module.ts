@@ -13,6 +13,10 @@ import { BalanceModule } from './balance/balance.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AddTransactionModule } from './add-transaction/add-transaction.module';
+import { AuthGuard } from './auth.guard';
+import { StatisticsModule } from './statistics/statistics.module';
+import { NgxEchartsModule } from 'ngx-echarts';
+
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -26,8 +30,12 @@ import { AddTransactionModule } from './add-transaction/add-transaction.module';
     SignInModule,
     BalanceModule,
     AddTransactionModule,
+    StatisticsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
