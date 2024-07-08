@@ -1,16 +1,5 @@
 <div class="all-balance-page">
-
   <app-name-page-block [namePage]="'Your Balance'"></app-name-page-block>
   <app-cards-month-block></app-cards-month-block>
-<!-- combine in one component -->
-  <app-modal-delete
-  *ngIf="isModal"
-  (modalEvent)="checkModalMessage($event)"
-></app-modal-delete>
-  <app-table-control (queryEvent)="setQueries($event)"></app-table-control>
-  <app-table-data
-    [dataKeys]="dataKeys"
-    [dataTable]="dataTable"
-    (idDeleteEvent)="emitDeleteAction($event)"
-  ></app-table-data>
+  <app-table-balance></app-table-balance>
 </div>

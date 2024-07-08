@@ -4,16 +4,14 @@ import {
   QueryFieldFilterConstraint,
   addDoc,
   collection,
-  collectionData,
   deleteDoc,
   doc,
   getDocs,
   orderBy,
-  query,
+  query
 } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, from, map } from 'rxjs';
-import { Transaction, TransactionDraft } from '../interfaces';
-import { AuthService } from 'src/app/auth.service';
+import { Observable, from } from 'rxjs';
+import { DataCharts, TransactionDraft } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -24,29 +22,10 @@ export class TransactionFirebaseService {
 
   transactionsCollection = collection(this.firestore, 'transactions');
 
-  authService = inject(AuthService);
-
-  constructor() {
-    this.authService.getUser().subscribe(data => {
-      data
-    })
-  }
-
-
-
-  // private authUpdateSubject = new BehaviorSubject<void>(undefined);
-  // authUpdate$ = this.authUpdateSubject.asObservable();
-
-  // dataTable: Observable<Transaction[]> | undefined;
-
-  // getAllTransactions(): Observable<Transaction[]> {
-  //   return collectionData(this.transactionsCollection, {
-  //     idField: 'idTransaction',
-  //   }) as Observable<Transaction[]>;
-  // }
+  dataChart: DataCharts | undefined;
+  dataChartsIncome$: Observable<number> | undefined
 
   async getQueryTransactions(args: QueryFieldFilterConstraint[]):Promise<{id: string;}[]> {
-
     const q = query(this.transactionsCollection, orderBy('date'), ...args);
     const querySnapshot = await getDocs(q);
 
@@ -65,4 +44,5 @@ export class TransactionFirebaseService {
     const promise = deleteDoc(docRef);
     return from(promise);
   }
+
 }

@@ -24,13 +24,10 @@ export class BalanceTableService {
     .subscribe((data) => {
       if (data?.uid) this.userId = data.uid;
       this.authUpdateSubject.next()
-      console.log(data?.uid)
     });
   }
 
   getDataTable(queriesArr: QueryFieldFilterConstraint[] = []) {
-
-    console.log(this.userId)
 
     const snapShot = this.transactionService.getQueryTransactions([where('idUser', '==', this.userId), ...queriesArr]);
     this.dataTable = from(snapShot) as Observable<Transaction[]>;

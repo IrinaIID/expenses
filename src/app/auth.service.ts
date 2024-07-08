@@ -7,7 +7,7 @@ import { Observable, from } from 'rxjs';
 })
 export class AuthService {
 
-  firebaseAuth = inject(Auth);
+  private firebaseAuth = inject(Auth);
 
   private user$: Observable<User | null> = user(this.firebaseAuth);
 

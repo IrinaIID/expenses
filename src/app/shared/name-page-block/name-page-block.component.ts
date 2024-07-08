@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-name-page-block',
@@ -6,12 +8,21 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./name-page-block.component.scss'],
 })
 export class NamePageBlockComponent implements OnInit {
+
+  private authServise = inject(AuthService);
+
   @Input() namePage!: string;
+
   currentDate: string | undefined;
-  name = 'Irina';
+  name: string | undefined;
   dateCreation = '2024/06/18';
+  subscription: Subscription | undefined;
 
   ngOnInit(): void {
+
+    this.subscription = this.authServise.getUser().subscribe(data => {
+      if (data?.displayName) this.name = data?.displayName
+    })
 
     const arrDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -23,5 +34,9 @@ export class NamePageBlockComponent implements OnInit {
     const year = dateNow.getFullYear();
     
     this.currentDate = `${year}/${month.toString().padStart(2, '0')}/${day}   ${dayWeekString}`;
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe()
   }
 }

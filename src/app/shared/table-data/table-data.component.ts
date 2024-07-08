@@ -11,7 +11,7 @@ export class TableDataComponent<T = any> {
 
   @Output() idDeleteEvent = new EventEmitter<T>();
 
-  chooseId(row: T) {
+  chooseId(row: T): void {
     this.idDeleteEvent.emit(row);
   }
 }

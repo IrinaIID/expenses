@@ -1,0 +1,23 @@
+@import '../../variables.scss';
+
+.all-statistics-page {
+
+  .name-view-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+
+    .btn-open-block {
+      background: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .img-open-active {
+      transform: rotate(180deg);
+    }
+  }
+
+
+}

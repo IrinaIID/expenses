@@ -1,6 +1,34 @@
-<h1>regfdbvfvfev</h1>
+<div class="all-statistics-page">
+  <app-name-page-block [namePage]="'Statistics'"></app-name-page-block>
+  
+
+  <div class="name-view-block">
+    <h2>Show current month statistics</h2>
+    <button class="btn-open-block" (click)="toggleMonthCards()">
+      <img [ngClass]="isOpenCards ? 'img-open-active' : ''" src="../../assets/img/open-arrow.svg" alt="open">
+    </button>
+  </div>
+
+  <div class="view-statistics-block" *ngIf="isOpenCards">
+    <app-cards-month-block></app-cards-month-block>
+  </div>
+
+  <div class="name-view-block">
+    <h2>Show statistics</h2>
+    <button class="btn-open-block" (click)="toggleStatistics()">
+      <img [ngClass]="isOpenStatistics ? 'img-open-active' : ''" src="../../assets/img/open-arrow.svg" alt="open">
+    </button>
+  </div>
+
+  <div class="view-statistics-block" *ngIf="isOpenStatistics">
+    <app-table-control (queryEvent)="setQueries($event)"></app-table-control>
+  </div>
+
+
+</div>
+
+<p>{{ dataChart | async }}</p>
 <div class="">
-  <div echarts [options]="chartOption" class="demo-chart"></div>
   <div echarts [options]="chartOption" class="demo-chart"></div>
 </div>
 <div class="hhhh"></div>

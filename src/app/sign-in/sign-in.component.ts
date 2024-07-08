@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class SignInComponent {
   isSignIn = true;
 
-  toggleForm() {
+  toggleForm(): void {
     this.isSignIn = !this.isSignIn;
   }
 }

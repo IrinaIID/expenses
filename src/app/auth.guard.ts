@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  authService = inject(AuthService);
+  private authService = inject(AuthService);
   user!: boolean;
 
   canActivate(): boolean {

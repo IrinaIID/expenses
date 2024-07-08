@@ -12,6 +12,8 @@ export class TableControlComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
 
+  @Output() queryEvent = new EventEmitter<QueryFieldFilterConstraint[]>();
+
   allCategories: string[] = [
     ...EXPENSES_CATEGORIES.map((item) => item.category),
     ...INCOME_CATEGORIES.map((item) => item.category),
@@ -21,7 +23,6 @@ export class TableControlComponent implements OnInit {
   queriesForm!: FormGroup;
   allQueries: QueryFieldFilterConstraint[] = [];
 
-  @Output() queryEvent = new EventEmitter<QueryFieldFilterConstraint[]>();
 
   ngOnInit(): void {
     this.queriesForm = this.formBuilder.group({
@@ -33,19 +34,17 @@ export class TableControlComponent implements OnInit {
     });
   }
 
-  cleanInputData(nameInput: string) {
+  cleanInputData(nameInput: string): void {
     this.queriesForm.get(nameInput)?.reset();
     this.setQueries();
   }
 
-  filterSearch() {
+  filterSearch(): void {
     this.queryEvent.emit(this.allQueries);
   }
 
-  setQueries() {
+  setQueries(): void {
     this.allQueries = [];
-
-    console.log(this.queriesForm.value);
 
     if (this.queriesForm.value.dateFrom) {
       const startDay = new Date(this.queriesForm.value.dateFrom).getTime();

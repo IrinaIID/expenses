@@ -20,23 +20,11 @@ export class FormTransactionComponent implements OnInit {
 
   typeTransaction: TypeTransaction | undefined;
   categoriesArr!: Category[] | undefined;
-  transactionForm!: FormGroup;  private ngUnsubscribe$ = new Subject<void>();
+  transactionForm!: FormGroup;  
+  private ngUnsubscribe$ = new Subject<void>();
 
   subcategories: string[] = [];
   userId!: string;
-
-
-
-  get subcategoriesFormArray() {
-    return this.transactionForm.controls['subcategories'] as FormArray;
-  }
-
-  private addCheckboxes() {
-    this.subcategoriesFormArray.clear();
-    // recheck this comment for me
-    // this.subcategoriesFormArray = new Array().fill(new FormControl(false), 0, this.subcategories.length - 1);
-    this.subcategories.forEach(() => this.subcategoriesFormArray.push(new FormControl(false)));
-  }
 
   ngOnInit(): void {
 
@@ -51,17 +39,27 @@ export class FormTransactionComponent implements OnInit {
     });
 
     this.authService.getUser()
-    .pipe(takeUntil(this.ngUnsubscribe$))
-    .subscribe((data) => {
-      if (data?.uid) this.userId = data.uid;
-      console.log(data?.uid)
-    });
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((data) => {
+        if (data?.uid) this.userId = data.uid;
+      });
   }
 
   ngOnDestroy() {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
     this.ngUnsubscribe$.unsubscribe();
+  }
+
+  get subcategoriesFormArray() {
+    return this.transactionForm.controls['subcategories'] as FormArray;
+  }
+
+  private addCheckboxes() {
+    this.subcategoriesFormArray.clear();
+    // recheck this comment for me
+    // this.subcategoriesFormArray = new Array().fill(new FormControl(false), 0, this.subcategories.length - 1);
+    this.subcategories.forEach(() => this.subcategoriesFormArray.push(new FormControl(false)));
   }
 
   setIncomeTypeTransaction(): void {
@@ -101,8 +99,6 @@ export class FormTransactionComponent implements OnInit {
         subcategories: arrSubcategoriesForTransaction,
         date: new Date(this.transactionForm.value.date).getTime() || new Date().getTime(),
       };
-
-      console.log(objSendForm)
 
       this.transactionService.addTransaction(objSendForm);
 

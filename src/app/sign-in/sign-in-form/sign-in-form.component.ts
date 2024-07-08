@@ -25,7 +25,7 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  validateForm() {
+  validateForm(): void {
     if (this.userFormSignIn.valid) {
       this.isValid = true;
     } else {
@@ -33,7 +33,7 @@ export class SignInFormComponent implements OnInit {
     }
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.isValid) {
       const rawForm = this.userFormSignIn.getRawValue();
       this.authService

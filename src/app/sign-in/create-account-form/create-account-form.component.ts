@@ -26,7 +26,7 @@ export class CreateAccountFormComponent implements OnInit {
     });
   }
 
-  validateForm() {
+  validateForm(): void {
     if (this.userForm.valid) {
       this.isValid = true;
     } else {
@@ -34,7 +34,7 @@ export class CreateAccountFormComponent implements OnInit {
     }
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.isValid) {
       const rawForm = this.userForm.getRawValue();
       this.authService

@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BalanceComponent } from './balance.component';
 import { SharedModule } from '../shared/shared.module';
 import { BalanceRoutingModule } from './balance-routing.module';
-import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 
 @NgModule({
-  declarations: [BalanceComponent, ModalDeleteComponent],
+  declarations: [BalanceComponent],
   imports: [CommonModule, SharedModule, BalanceRoutingModule],
   exports: [BalanceComponent],
 })

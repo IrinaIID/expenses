@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class ExchangeRateComponent implements OnInit {
 
   private exchangeService = inject(ExchangeService);
+  private authService = inject(AuthService);
 
   currencyData: Currency | undefined | any;
   ratesArr: Rate[] = [];
@@ -19,15 +20,13 @@ export class ExchangeRateComponent implements OnInit {
   isCards: boolean | undefined;
   updateTime: string | undefined;
 
-  authService = inject(AuthService);
-
-  isAuth: boolean = false;
-  rates!: Observable<any>
-
+  isAuth = false;
+  rates!: Observable<any>;
+  subscriotion!: Subscription;
 
   ngOnInit(): void {
 
-    this.authService.getUser().subscribe(data => this.isAuth = !!data?.uid);
+    this.subscriotion = this.authService.getUser().subscribe(data => this.isAuth = !!data?.uid);
 
     this.isCards = sessionStorage.getItem('isCards') === 'true';
 
@@ -49,6 +48,10 @@ export class ExchangeRateComponent implements OnInit {
       }));
 
     this.rates.subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscriotion.unsubscribe()
   }
 
   setCardsView(): void {

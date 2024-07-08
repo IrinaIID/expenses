@@ -2,21 +2,21 @@
   <div class="all-cards-momth">
     <div class="month-card">
       <p class="name-card-month">Month income</p>
-      <p class="p-amount">{{ amountMonthIncomes | currency }}</p>
+      <p class="p-amount">{{ amountMonthIncomes | async | currency }}</p>
     </div>
     <div class="month-card">
       <p class="name-card-month">Month expenses</p>
-      <p class="p-amount">{{ amountMonthExpenses | currency }}</p>
+      <p class="p-amount">{{ amountMonthExpenses | async | currency }}</p>
     </div>
     <div
       [ngClass]="
-        amountMonthBalance >= 0
+        isPositiveBalance
           ? 'month-card border-positive-balance'
           : 'month-card border-negative-balance'
       "
     >
       <p class="name-card-month">Month balance</p>
-      <p class="p-amount">{{ amountMonthBalance | currency }}</p>
+      <p class="p-amount">{{ amountMonthBalance | async | currency }}</p>
     </div>
   </div>
 </div>

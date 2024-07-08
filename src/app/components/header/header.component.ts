@@ -1,8 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthGuard } from 'src/app/auth.guard';
 import { AuthService } from 'src/app/auth.service';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
-import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +9,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  authService = inject(AuthService);
-  fireBaseService = inject(TransactionFirebaseService);
+  private authService = inject(AuthService);
+  private fireBaseService = inject(TransactionFirebaseService);
 
   isAuth = false;
 
@@ -21,7 +19,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.getUser().subscribe(data => console.log(data?.email))
     this.authService.logout();
   }
 }
