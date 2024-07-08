@@ -1,4 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { User } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
 
@@ -7,16 +9,11 @@ import { TransactionFirebaseService } from 'src/app/shared/services/transaction-
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   private authService = inject(AuthService);
-  private fireBaseService = inject(TransactionFirebaseService);
 
-  isAuth = false;
-
-  ngOnInit(): void {
-    this.authService.getUser().subscribe(data => this.isAuth = !!data?.uid);
-  }
+  user$: Observable<User | null> = this.authService.user$;
 
   logout(): void {
     this.authService.logout();

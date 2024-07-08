@@ -9,11 +9,7 @@ export class AuthService {
 
   private firebaseAuth = inject(Auth);
 
-  private user$: Observable<User | null> = user(this.firebaseAuth);
-
-  getUser(): Observable<User | null> {
-    return this.user$
-  }
+  user$: Observable<User | null> = user(this.firebaseAuth);
 
   register(name: string, email: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)

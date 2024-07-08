@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BalanceTableService } from '../table-data/balance-table.service';
+import { BalanceTableService } from './balance-table.service';
 import { TransactionFirebaseService } from '../services/transaction-firebase.service';
 import { BalanceTableData } from '../interfaces';
 import { Subject, takeUntil } from 'rxjs';

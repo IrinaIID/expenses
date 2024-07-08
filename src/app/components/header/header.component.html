@@ -2,45 +2,42 @@
   <div class="logo">Balance tracker</div>
   <nav class="nav-header">
     <a
-      *ngIf="isAuth"
-      class="nav-link"
-      routerLinkActive="nav-active-rout"
-      [routerLink]="['balance']"
-      >Balance</a
-    >
-    <a
-      *ngIf="isAuth"
-      class="nav-link"
-      routerLinkActive="nav-active-rout"
-      [routerLink]="['add-transaction']"
-      >New transaction</a
-    >
-    <a
-      *ngIf="isAuth"
-      class="nav-link"
-      routerLinkActive="nav-active-rout"
-      [routerLink]="['statistics']"
-      >Statistics</a
-    >
-    <a
       class="nav-link"
       routerLinkActive="nav-active-rout"
       [routerLink]="['exchange-rate']"
       >Exchange rate</a
     >
-    <a
-      *ngIf="!isAuth"
-      class="nav-link"
-      routerLinkActive="nav-active-rout"
-      [routerLink]="['sign-in']"
-      >Sign in</a
-    >
-    <a
-    *ngIf="isAuth"
-    class="nav-link"
-    [routerLink]="['exchange-rate']"
-    (click)="logout()"
-    >Log out</a
-  >
+    <ng-container *ngIf="user$ | async as user; else nonAuthorized">
+      <a
+        class="nav-link"
+        routerLinkActive="nav-active-rout"
+        [routerLink]="['balance']"
+        >Balance</a
+      >
+      <a
+        class="nav-link"
+        routerLinkActive="nav-active-rout"
+        [routerLink]="['add-transaction']"
+        >New transaction</a
+      >
+      <a
+        class="nav-link"
+        routerLinkActive="nav-active-rout"
+        [routerLink]="['statistics']"
+        >Statistics</a
+      >
+      <a class="nav-link" [routerLink]="['exchange-rate']" (click)="logout()"
+        >Log out</a
+      >
+    </ng-container>
   </nav>
 </div>
+
+<ng-template #nonAuthorized>
+  <a
+    class="nav-link"
+    routerLinkActive="nav-active-rout"
+    [routerLink]="['sign-in']"
+    >Sign in</a
+  >
+</ng-template>

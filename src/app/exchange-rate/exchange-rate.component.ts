@@ -26,7 +26,7 @@ export class ExchangeRateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.subscriotion = this.authService.getUser().subscribe(data => this.isAuth = !!data?.uid);
+    this.subscriotion = this.authService.user$.subscribe(data => this.isAuth = !!data?.uid);
 
     this.isCards = sessionStorage.getItem('isCards') === 'true';
 

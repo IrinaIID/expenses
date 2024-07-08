@@ -20,7 +20,7 @@ export class BalanceTableService {
   userId!: string;
 
   constructor() { 
-    this.authService.getUser()
+    this.authService.user$
     .subscribe((data) => {
       if (data?.uid) this.userId = data.uid;
       this.authUpdateSubject.next()

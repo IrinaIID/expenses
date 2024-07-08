@@ -20,17 +20,16 @@
     </button>
   </div>
 
-  <div class="view-statistics-block" *ngIf="isOpenStatistics">
+  <!-- <div class="view-statistics-block" *ngIf="isOpenStatistics">
     <app-table-control (queryEvent)="setQueries($event)"></app-table-control>
-  </div>
+  </div> -->
+
+  <app-chart [idUser]="idUser | async"></app-chart>
 
 
 </div>
 
-<p>{{ dataChart | async }}</p>
-<div class="">
-  <div echarts [options]="chartOption" class="demo-chart"></div>
-</div>
-<div class="hhhh"></div>
+
+
 
 

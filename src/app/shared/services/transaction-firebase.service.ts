@@ -8,7 +8,7 @@ import {
   doc,
   getDocs,
   orderBy,
-  query
+  query,
 } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { DataCharts, TransactionDraft } from '../interfaces';

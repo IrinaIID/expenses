@@ -6,7 +6,7 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ExchangeService } from './services/exchange.service';
 import { TransactionFirebaseService } from './services/transaction-firebase.service';
 import { TableDataComponent } from './table-data/table-data.component';
-import { BalanceTableService } from './table-data/balance-table.service';
+import { BalanceTableService } from './table-balance/balance-table.service';
 import { TableControlComponent } from './table-control/table-control.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableBalanceComponent } from './table-balance/table-balance.component';

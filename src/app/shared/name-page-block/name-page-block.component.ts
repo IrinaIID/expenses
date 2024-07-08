@@ -15,12 +15,11 @@ export class NamePageBlockComponent implements OnInit {
 
   currentDate: string | undefined;
   name: string | undefined;
-  dateCreation = '2024/06/18';
   subscription: Subscription | undefined;
 
   ngOnInit(): void {
 
-    this.subscription = this.authServise.getUser().subscribe(data => {
+    this.subscription = this.authServise.user$.subscribe(data => {
       if (data?.displayName) this.name = data?.displayName
     })
 
@@ -33,7 +32,7 @@ export class NamePageBlockComponent implements OnInit {
     const month = dateNow.getMonth() + 1;
     const year = dateNow.getFullYear();
     
-    this.currentDate = `${year}/${month.toString().padStart(2, '0')}/${day}   ${dayWeekString}`;
+    this.currentDate = `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')} ${dayWeekString}`;
   }
 
   ngOnDestroy() {

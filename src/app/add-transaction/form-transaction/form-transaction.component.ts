@@ -38,7 +38,7 @@ export class FormTransactionComponent implements OnInit {
       amount: [null, Validators.required],
     });
 
-    this.authService.getUser()
+    this.authService.user$
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((data) => {
         if (data?.uid) this.userId = data.uid;

@@ -53,7 +53,7 @@ export class CardsMonthBlockComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.subscriotion = this.authService.getUser().subscribe(data => {
+    this.subscriotion = this.authService.user$.subscribe(data => {
 
       if(data?.uid) this.setIdUserQuery(data.uid);
 
