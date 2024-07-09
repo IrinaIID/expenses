@@ -33,20 +33,20 @@
       <div *ngIf="isCards; then contentCards; else contentTable"></div>
       <ng-template #contentCards>
         <div class="all-cards-block">
-          <app-card-exchange-rate
+          <!-- <app-card-exchange-rate
             *ngFor="let rateItem of rates | async"
             [baseCurrency]="baseCurrency"
             [currency]="rateItem.currency"
-            [rate]="rateItem.rate"
-          ></app-card-exchange-rate>
+            [rate]="rates | async"
+          ></app-card-exchange-rate> -->
         </div>
       </ng-template>
       <ng-template #contentTable>
         <div class="all-table-block">
-          <app-table-exchange-rate
+          <!-- <app-table-exchange-rate
             [ratesArr]="rates | async"
             [baseCurrency]="baseCurrency"
-          ></app-table-exchange-rate>
+          ></app-table-exchange-rate> -->
         </div>
       </ng-template>
     </div>

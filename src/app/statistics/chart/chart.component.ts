@@ -54,10 +54,6 @@ export class ChartComponent implements OnChanges {
         {
           data: this.amountArr,
           type: 'line'
-        },
-        {
-          data: [50, 200, 250],
-          type: 'line'
         }
       ]
     }
@@ -76,9 +72,9 @@ export class ChartComponent implements OnChanges {
   
   refreshDataChart(idUser: string, queriesArr: QueryFieldFilterConstraint[] = []): Observable<Transaction[]> {
     queriesArr.push(where('idUser', '==', idUser));
-    const snapShot = this.transactionService.getQueryTransactions(queriesArr);
-    const data$ = from(snapShot) as unknown as Observable<Transaction[]>;
-    return data$
+    // const snapShot = this.transactionService.getQueryTransactions(queriesArr);
+    // const data$ = from(snapShot) as unknown as Observable<Transaction[]>;
+    return this.transactionService.getTransactions(queriesArr);
   }
 
 }

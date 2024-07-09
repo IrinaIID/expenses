@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   private authService = inject(AuthService);
 
   canActivate(): Observable<boolean> {
-    return this.authService.user$.pipe(map(user => !!user))
+    return this.authService.user$.pipe(map(user => !!user));
   }
   
 }

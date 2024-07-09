@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { TransactionFirebaseService } from '../services/transaction-firebase.service';
+import { TransactionFirebaseService } from '../../services/transaction-firebase.service';
 import { QueryFieldFilterConstraint, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, from, map } from 'rxjs';
-import { BalanceTableData, Transaction } from '../interfaces';
+import { BalanceTableData, Transaction } from '../../interfaces';
 import { AuthService } from 'src/app/auth.service';
 
 @Injectable({
@@ -29,8 +29,8 @@ export class BalanceTableService {
 
   getDataTable(queriesArr: QueryFieldFilterConstraint[] = []) {
 
-    const snapShot = this.transactionService.getQueryTransactions([where('idUser', '==', this.userId), ...queriesArr]);
-    this.dataTable = from(snapShot) as Observable<Transaction[]>;
+    // const snapShot = this.transactionService.getQueryTransactions([where('idUser', '==', this.userId), ...queriesArr]);
+    this.dataTable = this.transactionService.getTransactions([where('idUser', '==', this.userId), ...queriesArr]);
 
     return this.dataTable.pipe(
       map((data) => {

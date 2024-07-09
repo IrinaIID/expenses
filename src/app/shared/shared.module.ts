@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NamePageBlockComponent } from './name-page-block/name-page-block.component';
-import { CardsMonthBlockComponent } from './cards-month-block/cards-month-block.component';
+import { NamePageBlockComponent } from './componentes/name-page-block/name-page-block.component';
+import { CardsMonthBlockComponent } from './componentes/cards-month-block/cards-month-block.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ExchangeService } from './services/exchange.service';
 import { TransactionFirebaseService } from './services/transaction-firebase.service';
-import { TableDataComponent } from './table-data/table-data.component';
-import { BalanceTableService } from './table-balance/balance-table.service';
-import { TableControlComponent } from './table-control/table-control.component';
+import { TableDataComponent } from './componentes/table-data/table-data.component';
+import { BalanceTableService } from './componentes/table-balance/balance-table.service';
+import { TableControlComponent } from './componentes/table-control/table-control.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableBalanceComponent } from './table-balance/table-balance.component';
-import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { TableBalanceComponent } from './componentes/table-balance/table-balance.component';
+import { ModalDeleteComponent } from './componentes/modal-delete/modal-delete.component';
+import { FooterComponent } from './componentes/footer/footer.component';
+import { HeaderComponent } from './componentes/header/header.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,12 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     TableControlComponent,
     TableBalanceComponent,
     ModalDeleteComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
+    BrowserModule,
+    AppRoutingModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
@@ -34,6 +42,8 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     TableControlComponent,
     ModalDeleteComponent,
     TableBalanceComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   providers: [
     ExchangeService,

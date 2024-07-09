@@ -6,7 +6,7 @@ import { BalanceRoutingModule } from './balance-routing.module';
 
 @NgModule({
   declarations: [BalanceComponent],
-  imports: [CommonModule, SharedModule, BalanceRoutingModule],
+  imports: [CommonModule, BalanceRoutingModule, SharedModule],
   exports: [BalanceComponent],
 })
 export class BalanceModule {}

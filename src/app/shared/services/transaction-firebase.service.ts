@@ -10,32 +10,27 @@ import {
   orderBy,
   query,
 } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
-import { DataCharts, TransactionDraft } from '../interfaces';
+import { Observable, from, map } from 'rxjs';
+import { DataCharts, Transaction, TransactionDraft } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionFirebaseService {
-
   private firestore = inject(Firestore);
 
   transactionsCollection = collection(this.firestore, 'transactions');
 
-  dataChart: DataCharts | undefined;
-  dataChartsIncome$: Observable<number> | undefined
+  // dataChart: DataCharts | undefined;
+  // dataChartsIncome$: Observable<number> | undefined;
 
-  async getQueryTransactions(args: QueryFieldFilterConstraint[]):Promise<{id: string;}[]> {
+  getTransactions(args: QueryFieldFilterConstraint[]): Observable<Transaction[]> {
     const q = query(this.transactionsCollection, orderBy('date'), ...args);
-    const querySnapshot = await getDocs(q);
-
-    return querySnapshot.docs.map((doc) => {
-      return { id: doc.id, ...doc.data() };
-    });
+    return from(getDocs(q)).pipe(map(({ docs }) => docs.map((doc) => ({ ...doc.data() } as Transaction))));
   }
 
-  addTransaction(object: TransactionDraft): Observable<string> {
-    const promise = addDoc(this.transactionsCollection, object).then((response) => response.id);
+  addTransaction(transaction: TransactionDraft): Observable<string> {
+    const promise = addDoc(this.transactionsCollection, transaction).then((response) => response.id);
     return from(promise);
   }
 
@@ -44,5 +39,4 @@ export class TransactionFirebaseService {
     const promise = deleteDoc(docRef);
     return from(promise);
   }
-
 }

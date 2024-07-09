@@ -7,6 +7,7 @@ import { Rate } from '../interfaces';
   styleUrls: ['./table-exchange-rate.component.scss'],
 })
 export class TableExchangeRateComponent {
-  @Input() ratesArr!: Rate[];
+  @Input() ratesArr!: Rate[] | null;
   @Input() baseCurrency!: string;
+
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Rate } from '../interfaces';
 
 @Component({
   selector: 'app-card-exchange-rate',
@@ -8,5 +9,5 @@ import { Component, Input } from '@angular/core';
 export class CardExchangeRateComponent {
   @Input() baseCurrency!: string;
   @Input() currency!: string;
-  @Input() rate!: number;
+  @Input() rate!: Rate[] | null;
 }
