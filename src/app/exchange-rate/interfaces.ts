@@ -4,11 +4,8 @@ export class Currency {
   timeNextUpdate!: string;
   baseCode?: string;
   rates!: Rate[];
-  // rates: {
-  //   [key: string]: number;
-  // };
 
-  fromJson(json: any): Currency | undefined {
+  static fromJson(json: any): Currency | undefined {
     if (!json) {
       return undefined;
     }

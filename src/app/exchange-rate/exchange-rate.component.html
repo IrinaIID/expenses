@@ -24,29 +24,28 @@
         </button>
       </div>
     </div>
-    <!-- <p class="p-base-currency">base currency: <span class="span-base-currency">{{ baseCurrency }}</span></p> -->
+    <p class="p-base-currency">base currency: <span class="span-base-currency">{{ baseCurrency }}</span></p>
     <p class="p-base-currency">
       last update:
       <span class="span-base-currency">{{ updateTime | date }}</span>
     </p>
     <div class="all-currency-elements-block">
-      <div *ngIf="isCards; then contentCards; else contentTable"></div>
-      <ng-template #contentCards>
+      <ng-container *ngIf="isCards; else contentTable">
         <div class="all-cards-block">
-          <!-- <app-card-exchange-rate
+          <app-card-exchange-rate
             *ngFor="let rateItem of rates | async"
             [baseCurrency]="baseCurrency"
             [currency]="rateItem.currency"
-            [rate]="rates | async"
-          ></app-card-exchange-rate> -->
+            [rate]="rateItem"
+          ></app-card-exchange-rate>
         </div>
-      </ng-template>
+      </ng-container>
       <ng-template #contentTable>
         <div class="all-table-block">
-          <!-- <app-table-exchange-rate
+          <app-table-exchange-rate
             [ratesArr]="rates | async"
             [baseCurrency]="baseCurrency"
-          ></app-table-exchange-rate> -->
+          ></app-table-exchange-rate>
         </div>
       </ng-template>
     </div>

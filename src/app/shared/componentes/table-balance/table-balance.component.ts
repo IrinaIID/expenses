@@ -34,9 +34,9 @@ export class TableBalanceComponent  implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.balanceTableService.authUpdate$.subscribe(() => {
+
       this.refreshTable(this.queriesTable);
-    })
+
   }
 
   ngOnDestroy() {

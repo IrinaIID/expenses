@@ -13,7 +13,7 @@ export class CardsMonthBlockComponent implements OnInit {
   private transactionService = inject(TransactionFirebaseService);
   private authService = inject(AuthService);
 
-  idUser: string | null = this.authService.idUser;
+  idUser: string;
 
   amountMonthIncomes!: Observable<number>;
   amountMonthExpenses!: Observable<number>;
@@ -26,12 +26,8 @@ export class CardsMonthBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-
-    console.log(this.authService.uidFire)
-
-
+    this.idUser = this.authService.getUserId();
   }
-
 
   loadData(): void {
     const dateToday = new Date();
@@ -39,60 +35,40 @@ export class CardsMonthBlockComponent implements OnInit {
     const month = dateToday.getMonth();
     const firstDayMonth = new Date(year, month, 1).getTime();
     const lastDayMonth = new Date(year, month + 1, 0, 24).getTime();
-  
+
     this.queriesArrIncomes.push(
       where('type', '==', 'income'),
       where('date', '>=', firstDayMonth),
-      where('date', '<=', lastDayMonth));
-  
+      where('date', '<=', lastDayMonth)
+    );
+
     this.queriesArrExpenses.push(
       where('type', '==', 'expense'),
       where('date', '>=', firstDayMonth),
-      where('date', '<=', lastDayMonth));
-      
- 
+      where('date', '<=', lastDayMonth)
+    );
+
     this.requestTransactions();
   }
 
   private requestTransactions(): void {
-    this.subscriotion = this.authService.user$.subscribe((data) => {
-      if (data?.uid) {
-        this.setIdUserQuery(data.uid);
-      }
+    this.amountMonthIncomes = this.transactionService.getTransactions(this.queriesArrIncomes).pipe(
+      map((data) => {
+        return data.reduce((total, income) => total + income.amount, 0);
+      })
+    );
 
-      // const snapShotIncomes = this.transactionService.getQueryTransactions(this.queriesArrIncomes);
-      // const observableIncomesMonth = from(snapShotIncomes) as Observable<Transaction[]>
-      this.amountMonthIncomes = this.transactionService.getTransactions(this.queriesArrIncomes).pipe(
-        map((data) => {
-          return data.reduce((total, income) => total + income.amount, 0);
-        })
-      );
+    this.amountMonthExpenses = this.transactionService.getTransactions(this.queriesArrExpenses).pipe(
+      map((data) => {
+        return data.reduce((total, expense) => total + expense.amount, 0);
+      })
+    );
 
-      // const snapShotExpenses = this.transactionService.getQueryTransactions(this.queriesArrExpenses);
-      // const observableExpensesMonth = from(snapShotExpenses) as Observable<Transaction[]>;
-      this.amountMonthExpenses = this.transactionService.getTransactions(this.queriesArrExpenses).pipe(
-        map((data) => {
-          return data.reduce((total, expense) => total + expense.amount, 0);
-        })
-      );
-
-      this.amountMonthBalance = combineLatest([this.amountMonthIncomes, this.amountMonthExpenses]).pipe(
-        map(([incomes, expenses]) => {
-          this.isPositiveBalance = incomes - expenses >= 0;
-          return incomes - expenses;
-        })
-      );
-    });
-  }
-
-  
-
-  ngOnDEstroy() {
-    this.subscriotion.unsubscribe();
-  }
-
-  setIdUserQuery(idUser: string): void {
-    this.queriesArrIncomes.push(where('idUser', '==', idUser));
-    this.queriesArrExpenses.push(where('idUser', '==', idUser));
+    this.amountMonthBalance = combineLatest([this.amountMonthIncomes, this.amountMonthExpenses]).pipe(
+      map(([incomes, expenses]) => {
+        this.isPositiveBalance = incomes - expenses >= 0;
+        return incomes - expenses;
+      })
+    );
   }
 }

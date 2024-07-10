@@ -25,12 +25,14 @@
     }
 
     .btn-expense {
-      color: #ffffff;
-      background: $primary-color;
+      background: none;
+      border: 1px solid $primary-color;
     }
   }
 
   .h2-type-transaction {
+    font-size: 36px;
+    color: $accent-color;
     text-transform: capitalize;
     margin: 40px 0;
   }
@@ -48,6 +50,18 @@
         width: 140px;
         font-weight: 700;
         padding-top: 10px;
+
+        .span-requaried,
+        .span-requaried-error {
+          font-size: 12px;
+          font-weight: 200;
+          color: $light-color;
+        }
+
+        .span-requaried-error {
+          font-size: 14px;
+          color: $error-text-message;
+        }
       }
 
       .input {

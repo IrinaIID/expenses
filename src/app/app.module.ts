@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { StatisticsModule } from './statistics/statistics.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { SharedModule } from './shared/shared.module';
+import { NotFoundModule } from './not-found/not-found.module';
 
 
 
@@ -34,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
     SignInModule,
     BalanceModule,
     StatisticsModule,
+    NotFoundModule
   ],
   providers: [
     AuthGuard,

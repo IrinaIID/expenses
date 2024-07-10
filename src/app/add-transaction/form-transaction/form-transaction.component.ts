@@ -1,11 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransactionDraft, TypeTransaction } from 'src/app/shared/interfaces';
-import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../const';
+import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../CATEGORIES';
 import { Category } from '../interfaces';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
 import { AuthService } from 'src/app/auth.service';
-import { Subject, takeUntil } from 'rxjs';
+
+type Validation = {
+  title: boolean,
+  regularity: boolean,
+  category: boolean,
+  amount: boolean
+}
 
 @Component({
   selector: 'app-form-transaction',
@@ -13,23 +19,23 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./form-transaction.component.scss'],
 })
 export class FormTransactionComponent implements OnInit {
-
   private formBuilder = inject(FormBuilder);
   private transactionService = inject(TransactionFirebaseService);
   private authService = inject(AuthService);
 
   typeTransaction: TypeTransaction | undefined;
   categoriesArr!: Category[] | undefined;
-  transactionForm!: FormGroup;  
-  private ngUnsubscribe$ = new Subject<void>();
+  transactionForm!: FormGroup;
 
   subcategories: string[] = [];
   userId!: string;
+  objValidation: Validation;
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
 
     this.transactionForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(50)]],
+      title: ['', [Validators.required, Validators.maxLength(100)]],
       description: '',
       regularity: ['no', Validators.required],
       category: ['', Validators.required],
@@ -37,18 +43,6 @@ export class FormTransactionComponent implements OnInit {
       date: new Date(),
       amount: [null, Validators.required],
     });
-
-    this.authService.user$
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((data) => {
-        if (data?.uid) this.userId = data.uid;
-      });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-    this.ngUnsubscribe$.unsubscribe();
   }
 
   get subcategoriesFormArray() {
@@ -57,8 +51,6 @@ export class FormTransactionComponent implements OnInit {
 
   private addCheckboxes() {
     this.subcategoriesFormArray.clear();
-    // recheck this comment for me
-    // this.subcategoriesFormArray = new Array().fill(new FormControl(false), 0, this.subcategories.length - 1);
     this.subcategories.forEach(() => this.subcategoriesFormArray.push(new FormControl(false)));
   }
 
@@ -82,6 +74,13 @@ export class FormTransactionComponent implements OnInit {
   }
 
   submitForm(): void {
+    this.objValidation = {
+      title: this.transactionForm.controls['title'].valid,
+      regularity: this.transactionForm.controls['regularity'].valid,
+      category: this.transactionForm.controls['category'].valid,
+      amount: this.transactionForm.controls['amount'].valid
+    }
+    
     if (this.transactionForm?.valid) {
       const arrSubcategories = this.transactionForm.value.subcategories.map((item: boolean | string, index: number) => {
         return item === true ? (item = this.subcategories[index]) : item;

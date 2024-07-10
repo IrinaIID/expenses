@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { HeroResolver } from './getUserId';
-
-// function getUserId(firebaseAuth: Auth): () => Observable<any> {
-//   return () => user(firebaseAuth);
-//  }
+import { UserIdResolver } from './getUserId';
 
 const routes: Routes = [
   {
     path: '',
-    resolve: {
-      hero: HeroResolver
-    },
+    canActivateChild: [UserIdResolver],
+    // resolve: {
+    //   userId: UserIdResolver
+    // },
     children: [
       { path: 'balance',
         loadChildren: () => import('./balance/balance-routing.module').then((m) => m.BalanceRoutingModule),
@@ -38,9 +35,14 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: '**',
+        pathMatch: 'full',
+        loadChildren: () => import('./not-found/not-found-routing.module').then((m) => m.NotFoundRoutingModule),
+      },
+      {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'balance'
+        redirectTo: 'exchange-rate'
       }
     ]
   },

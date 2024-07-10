@@ -40,10 +40,10 @@ export class SignInFormComponent implements OnInit {
         .login(rawForm.email, rawForm.password)
         .subscribe({
           next: () => {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('balance');
           },
           error: (err) => {
-            this.errorMessage = err.code.toString().slice(5);
+            this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
           }
         }
     )

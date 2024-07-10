@@ -20,11 +20,10 @@
     </button>
   </div>
 
-  <!-- <div class="view-statistics-block" *ngIf="isOpenStatistics">
-    <app-table-control (queryEvent)="setQueries($event)"></app-table-control>
-  </div> -->
+  <div class="view-statistics-block" *ngIf="isOpenStatistics">
+    <app-chart></app-chart>
+  </div>
 
-  <app-chart [idUser]="idUser | async"></app-chart>
 
 
 </div>

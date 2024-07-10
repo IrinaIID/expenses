@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   private authService = inject(AuthService);
 
   user$: Observable<User | null> = this.authService.user$;

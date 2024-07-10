@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User, user, UserCredential } from '@angular/fire/auth';
-import { Observable, from, tap } from 'rxjs';
+import { BehaviorSubject, Observable, from, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,9 @@ export class AuthService {
 
   idUser!: string | null;
 
-  uidFire: string | undefined;
+  uidFireSubj: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+
+  uidFire: Observable<string | undefined> = this.uidFireSubj.asObservable();
 
   register(name: string, email: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
@@ -25,12 +27,20 @@ export class AuthService {
 
   login(email: string, password: string): Observable<UserCredential> {
     const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password);
-    return from(promise).pipe(tap((data) => this.uidFire = data.user.uid));
+    return from(promise).pipe(tap((data) => this.updateUserId(data.user.uid)));
   }
 
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth);
-    return from(promise).pipe(tap(() => this.uidFire = undefined));
+    return from(promise).pipe(tap(() => this.updateUserId(undefined)));
+  }
+
+  getUserId(): string | undefined {
+    return this.uidFireSubj.getValue();
+  }
+
+  updateUserId(value: string | undefined): void {
+    this.uidFireSubj.next(value);
   }
 
 }

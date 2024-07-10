@@ -41,10 +41,10 @@ export class CreateAccountFormComponent implements OnInit {
         .register(rawForm.name, rawForm.email, rawForm.password)
         .subscribe({
           next: () => {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('balance');
           },
           error: (err) => {
-            this.errorMessage = err.code;
+            this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
           }
         }
     )

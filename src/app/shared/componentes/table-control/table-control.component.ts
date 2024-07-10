@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { QueryFieldFilterConstraint, where } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/const';
+import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/CATEGORIES';
 
 @Component({
   selector: 'app-table-control',
@@ -22,7 +22,6 @@ export class TableControlComponent implements OnInit {
   allSortOptions: string[] = ['date', 'type', 'amount', 'regularity', 'title', 'category'];
   queriesForm!: FormGroup;
   allQueries: QueryFieldFilterConstraint[] = [];
-
 
   ngOnInit(): void {
     this.queriesForm = this.formBuilder.group({

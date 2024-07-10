@@ -1,0 +1,12 @@
+@import '../../../variables.scss';
+
+.h3-name-chart {
+  color: $primary-color;
+  margin-top: 30px;
+}
+
+.chart-block {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}

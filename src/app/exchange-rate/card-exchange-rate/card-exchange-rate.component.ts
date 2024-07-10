@@ -9,5 +9,5 @@ import { Rate } from '../interfaces';
 export class CardExchangeRateComponent {
   @Input() baseCurrency!: string;
   @Input() currency!: string;
-  @Input() rate!: Rate[] | null;
+  @Input() rate!: Rate | null;
 }
