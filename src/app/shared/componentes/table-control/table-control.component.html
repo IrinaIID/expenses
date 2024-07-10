@@ -1,0 +1,81 @@
+<div class="all-controlls-block">
+  <form
+    [formGroup]="queriesForm"
+    class="all-form-queies"
+    (change)="setQueries()"
+  >
+    <div class="dete-control-block">
+      <div class="date-control">
+        <label for="from-date" class="label-control">from</label>
+        <input
+          type="date"
+          id="from-date"
+          class="input-date"
+          formControlName="dateFrom"
+        />
+        <button
+          class="btn-clean-input-data"
+          (click)="cleanInputData('dateFrom')"
+        >
+          X
+        </button>
+      </div>
+
+      <div class="date-control">
+        <label for="to-date" class="label-control">to</label>
+        <input
+          type="date"
+          id="to-date"
+          class="input-date"
+          formControlName="dateTo"
+        />
+        <button class="btn-clean-input-data" (click)="cleanInputData('dateTo')">
+          X
+        </button>
+      </div>
+    </div>
+
+    <div class="type-control-block">
+      <label for="type-select" class="label-control">type</label>
+      <select
+        name="type"
+        id="type-select"
+        class="select-control select-control-type"
+        formControlName="type"
+      >
+        <option value="income" class="option option-type" ngValue="income">
+          income
+        </option>
+        <option value="expense" class="option option-type" ngValue="expense">
+          expense
+        </option>
+      </select>
+      <button class="btn-clean-input-data" (click)="cleanInputData('type')">
+        X
+      </button>
+    </div>
+
+    <div class="category-control-block">
+      <label for="category-select" class="label-control label-control-category"
+        >category
+      </label>
+      <select
+        name="category"
+        id="category-select"
+        class="select-control"
+        formControlName="category"
+      >
+        <option
+          *ngFor="let category of allCategories"
+          class="option option-category"
+          [ngValue]="category"
+        >
+          {{ category }}
+        </option>
+      </select>
+      <button class="btn-clean-input-data" (click)="cleanInputData('category')">
+        X
+      </button>
+    </div>
+  </form>
+</div>

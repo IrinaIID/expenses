@@ -1,0 +1,55 @@
+<div class="all-page-exchange-rate">
+  <div *ngIf="!isAuth" class="guest-block">
+    <h1 class="h1-text-guest">
+      Welcome to <span class="span-highlight">Expense tracker! </span><br />
+      For getting more functionality please
+    </h1>
+    <a class="link-sign-in" [routerLink]="['../sign-in']">Sign In</a>
+  </div>
+  <div class="currency-block">
+    <div class="currency-name-block">
+      <h2>Exchanges rates</h2>
+      <div class="btns-toggle-view-block">
+        <button
+          [ngClass]="isCards ? 'btn-toggle btn-active' : 'btn-toggle'"
+          (click)="setCardsView()"
+        >
+          Cards
+        </button>
+        <button
+          [ngClass]="!isCards ? 'btn-toggle btn-active' : 'btn-toggle'"
+          (click)="setTableView()"
+        >
+          Table
+        </button>
+      </div>
+    </div>
+    <p class="p-base-currency">
+      base currency: <span class="span-base-currency">{{ baseCurrency }}</span>
+    </p>
+    <p class="p-base-currency">
+      last update:
+      <span class="span-base-currency">{{ updateTime | date }}</span>
+    </p>
+    <div class="all-currency-elements-block">
+      <ng-container *ngIf="isCards; else contentTable">
+        <div class="all-cards-block">
+          <app-card-exchange-rate
+            *ngFor="let rateItem of rates | async"
+            [baseCurrency]="baseCurrency"
+            [currency]="rateItem.currency"
+            [rate]="rateItem"
+          ></app-card-exchange-rate>
+        </div>
+      </ng-container>
+      <ng-template #contentTable>
+        <div class="all-table-block">
+          <app-table-exchange-rate
+            [ratesArr]="rates | async"
+            [baseCurrency]="baseCurrency"
+          ></app-table-exchange-rate>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

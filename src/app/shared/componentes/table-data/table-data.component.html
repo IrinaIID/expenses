@@ -1,0 +1,26 @@
+<table class="all-table">
+  <thead>
+    <tr>
+      <th
+        scope="col"
+        class="th-key-name-table"
+        *ngFor="let key of dataKeys"
+        name="key"
+      >
+        {{ key }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let infoTable of dataTable" class="tr-row">
+      <td *ngFor="let key of dataKeys" class="td-row-data">
+        {{ infoTable[key] }}
+      </td>
+      <td>
+        <button class="btn-delete-row-table" (click)="chooseId(infoTable)">
+          <img src="../../../assets/img/bin.svg" alt="bin" />
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
