@@ -15,8 +15,8 @@ export interface UserFire {
 }
 
 export interface UserFB {
-  name: string,
-  email: string
+  name: string;
+  email: string;
 }
 
 export interface Transaction {
@@ -41,7 +41,7 @@ export interface BalanceTableData extends Omit<Transaction, 'idUser' | 'date'> {
 export type TypeTransaction = 'income' | 'expense' | null;
 
 export interface DataCharts {
-  income: number[],
-  expense: number[],
-  date: number[]
+  income: number[];
+  expense: number[];
+  date: number[];
 }

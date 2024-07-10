@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./create-account-form.component.scss'],
 })
 export class CreateAccountFormComponent implements OnInit {
-
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -37,17 +36,14 @@ export class CreateAccountFormComponent implements OnInit {
   submitForm(): void {
     if (this.isValid) {
       const rawForm = this.userForm.getRawValue();
-      this.authService
-        .register(rawForm.name, rawForm.email, rawForm.password)
-        .subscribe({
-          next: () => {
-            this.router.navigateByUrl('balance');
-          },
-          error: (err) => {
-            this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
-          }
-        }
-    )
+      this.authService.register(rawForm.name, rawForm.email, rawForm.password).subscribe({
+        next: () => {
+          this.router.navigateByUrl('balance');
+        },
+        error: (err) => {
+          this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
+        },
+      });
     }
   }
 }

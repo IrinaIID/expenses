@@ -1,11 +1,14 @@
 <div class="all-statistics-page">
   <app-name-page-block [namePage]="'Statistics'"></app-name-page-block>
-  
 
   <div class="name-view-block">
     <h2>Show current month statistics</h2>
     <button class="btn-open-block" (click)="toggleMonthCards()">
-      <img [ngClass]="isOpenCards ? 'img-open-active' : ''" src="../../assets/img/open-arrow.svg" alt="open">
+      <img
+        [ngClass]="isOpenCards ? 'img-open-active' : ''"
+        src="../../assets/img/open-arrow.svg"
+        alt="open"
+      />
     </button>
   </div>
 
@@ -16,19 +19,15 @@
   <div class="name-view-block">
     <h2>Show statistics</h2>
     <button class="btn-open-block" (click)="toggleStatistics()">
-      <img [ngClass]="isOpenStatistics ? 'img-open-active' : ''" src="../../assets/img/open-arrow.svg" alt="open">
+      <img
+        [ngClass]="isOpenStatistics ? 'img-open-active' : ''"
+        src="../../assets/img/open-arrow.svg"
+        alt="open"
+      />
     </button>
   </div>
 
   <div class="view-statistics-block" *ngIf="isOpenStatistics">
     <app-chart></app-chart>
   </div>
-
-
-
 </div>
-
-
-
-
-

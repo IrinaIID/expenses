@@ -22,7 +22,16 @@
   <h2 class="h2-type-transaction">{{ typeTransaction || null }}</h2>
   <div *ngIf="typeTransaction" class="all-form-fields-transaction">
     <div class="input-block">
-      <label for="title" class="label">Title<br><span [ngClass]="transactionForm?.get('title')?.invalid ? 'span-requaried-error' : 'span-requaried'">*requaried</span></label>
+      <label for="title" class="label"
+        >Title<br /><span
+          [ngClass]="
+            transactionForm?.get('title')?.invalid
+              ? 'span-requaried-error'
+              : 'span-requaried'
+          "
+          >*required</span
+        ></label
+      >
       <input
         maxlength="100"
         type="text"
@@ -42,7 +51,16 @@
     </div>
 
     <div class="input-block input-block-amount">
-      <label for="amount" class="label">amount<br><span [ngClass]="transactionForm?.get('amount')?.invalid ? 'span-requaried-error' : 'span-requaried'">*requaried</span></label>
+      <label for="amount" class="label"
+        >amount<br /><span
+          [ngClass]="
+            transactionForm?.get('amount')?.invalid
+              ? 'span-requaried-error'
+              : 'span-requaried'
+          "
+          >*required</span
+        ></label
+      >
       <input
         type="number"
         id="amount"
@@ -52,7 +70,16 @@
     </div>
 
     <div class="input-block input-block-radio">
-      <p class="label">Regularity<br><span [ngClass]="transactionForm?.get('regularity')?.invalid ? 'span-requaried-error' : 'span-requaried'">*requaried</span></p>
+      <p class="label">
+        Regularity<br /><span
+          [ngClass]="
+            transactionForm?.get('regularity')?.invalid
+              ? 'span-requaried-error'
+              : 'span-requaried'
+          "
+          >*required</span
+        >
+      </p>
       <label for="regularity-yes">yes</label>
       <input
         type="radio"
@@ -72,7 +99,16 @@
     </div>
 
     <div class="input-block">
-      <label for="category" class="label">Category<br><span [ngClass]="transactionForm?.get('category')?.invalid ? 'span-requaried-error' : 'span-requaried'">*requaried</span></label>
+      <label for="category" class="label"
+        >Category<br /><span
+          [ngClass]="
+            transactionForm?.get('category')?.invalid
+              ? 'span-requaried-error'
+              : 'span-requaried'
+          "
+          >*required</span
+        ></label
+      >
       <select
         formControlName="category"
         id="category"

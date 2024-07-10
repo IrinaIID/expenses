@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { UserIdResolver } from './getUserId';
+import { UserIdResolver } from './user-id.resolver';
 
 const routes: Routes = [
   {
@@ -11,9 +11,10 @@ const routes: Routes = [
     //   userId: UserIdResolver
     // },
     children: [
-      { path: 'balance',
+      {
+        path: 'balance',
         loadChildren: () => import('./balance/balance-routing.module').then((m) => m.BalanceRoutingModule),
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
       },
       {
         path: 'sign-in',
@@ -21,18 +22,19 @@ const routes: Routes = [
       },
       {
         path: 'exchange-rate',
-        loadChildren: () => import('./exchange-rate/exchange-rate-routing.module').then((m) => m.ExchangeRateRoutingModule),
+        loadChildren: () =>
+          import('./exchange-rate/exchange-rate-routing.module').then((m) => m.ExchangeRateRoutingModule),
       },
       {
         path: 'add-transaction',
         loadChildren: () =>
           import('./add-transaction/add-transaction-routing.module').then((m) => m.AddTransactionRoutingModule),
-          canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
       },
       {
         path: 'statistics',
         loadChildren: () => import('./statistics/statistics-routing.module').then((m) => m.StatisticsRoutingModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
       },
       {
         path: '**',
@@ -42,9 +44,9 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'exchange-rate'
-      }
-    ]
+        redirectTo: 'exchange-rate',
+      },
+    ],
   },
 ];
 

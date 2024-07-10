@@ -4,14 +4,12 @@ import { Currency, Rate } from './interfaces';
 import { map, Observable, Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 
-
 @Component({
   selector: 'app-exchange-rate',
   templateUrl: './exchange-rate.component.html',
   styleUrls: ['./exchange-rate.component.scss'],
 })
 export class ExchangeRateComponent implements OnInit {
-
   private exchangeService = inject(ExchangeService);
   private authService = inject(AuthService);
 
@@ -26,33 +24,18 @@ export class ExchangeRateComponent implements OnInit {
   subscriotion!: Subscription;
 
   ngOnInit(): void {
-
-    this.subscriotion = this.authService.user$.subscribe(data => this.isAuth = !!data?.uid);
+    this.subscriotion = this.authService.user$.subscribe((data) => (this.isAuth = !!data?.uid));
 
     this.isCards = sessionStorage.getItem('isCards') === 'true';
 
     this.baseCurrency = this.exchangeService.getBaseCurrency();
 
-    this.rates = this.exchangeService.getCurrency()
-    .pipe(map(data => {
-      this.updateTime = data.timeLastUpdateUtc;
-      return data.rates;
-    }))
-
-    // this.rates = this.exchangeService.getCurrency()
-    //   .pipe(map((data) => {
-    //     this.updateTime = data.timeLastUpdateUtc;
-    //     this.currencyData = data.rates;
-    //     const arrRates = []
-
-    //     for (const property in this.currencyData) {
-    //       arrRates.push({
-    //         currency: property,
-    //         rate: this.currencyData[property],
-    //       });
-    //     }
-    //     return  arrRates
-    //   }));
+    this.rates = this.exchangeService.getCurrency().pipe(
+      map((data) => {
+        this.updateTime = data.timeLastUpdateUtc;
+        return data.rates;
+      })
+    );
 
     this.rates.subscribe();
   }

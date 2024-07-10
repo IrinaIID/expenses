@@ -11,7 +11,6 @@ import { TransactionFirebaseService } from 'src/app/shared/services/transaction-
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-
   private transactionService = inject(TransactionFirebaseService);
 
   @Input() idUser!: string | undefined | null;
@@ -24,32 +23,31 @@ export class ChartComponent implements OnInit {
   amountArrIncomes: number[] = [];
   amountArrExpenses: number[] = [];
 
-
   ngOnInit(): void {
     this.refreshDataChart()
-    .pipe(takeUntil(this.ngUnsubscribe$))
-    .subscribe((data) => {
-      data.forEach((transaction) => {
-        const date = new Date(transaction.date).toLocaleDateString();
-        if (date === this.datesArr[this.datesArr.length - 1]) {
-          if (transaction.type === 'income') {
-            this.amountArrIncomes[this.amountArrIncomes.length - 1] += transaction.amount
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((data) => {
+        data.forEach((transaction) => {
+          const date = new Date(transaction.date).toLocaleDateString();
+          if (date === this.datesArr[this.datesArr.length - 1]) {
+            if (transaction.type === 'income') {
+              this.amountArrIncomes[this.amountArrIncomes.length - 1] += transaction.amount;
+            } else {
+              this.amountArrExpenses[this.amountArrExpenses.length - 1] += transaction.amount;
+            }
           } else {
-            this.amountArrExpenses[this.amountArrExpenses.length - 1] += transaction.amount
+            this.datesArr.push(date);
+            if (transaction.type == 'income') {
+              this.amountArrIncomes.push(transaction.amount);
+              this.amountArrExpenses.push(0);
+            } else {
+              this.amountArrIncomes.push(0);
+              this.amountArrExpenses.push(transaction.amount);
+            }
           }
-        } else {
-          this.datesArr.push(date);
-          if(transaction.type == 'income') {
-            this.amountArrIncomes.push(transaction.amount);
-            this.amountArrExpenses.push(0);
-          } else {
-            this.amountArrIncomes.push(0);
-            this.amountArrExpenses.push(transaction.amount);
-          }
-        }
+        });
+        this.setDataChart();
       });
-      this.setDataChart();
-    });
   }
 
   ngOnDestroy() {
@@ -63,21 +61,24 @@ export class ChartComponent implements OnInit {
       toolbox: {
         feature: {
           dataView: { show: true, readOnly: true },
-          saveAsImage: { show: true },
-        }
+          saveAsImage: { 
+            show: true, 
+            name: `your_balance_chart_${new Date().toLocaleDateString()}`
+          },
+        },
       },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'shadow'
-        }
+          type: 'shadow',
+        },
       },
       legend: {},
       grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        containLabel: true
+        containLabel: true,
       },
       xAxis: {
         type: 'category',
@@ -96,7 +97,7 @@ export class ChartComponent implements OnInit {
           name: 'Expenses',
           data: this.amountArrExpenses,
           type: 'line',
-        }
+        },
       ],
     };
 
@@ -104,44 +105,47 @@ export class ChartComponent implements OnInit {
       toolbox: {
         feature: {
           dataView: { show: true, readOnly: true },
-          saveAsImage: { show: true },
-        }
+          saveAsImage: { 
+            show: true,
+            name: `your_balance_chart_${new Date().toLocaleDateString()}`
+          },
+        },
       },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'shadow'
-        }
+          type: 'shadow',
+        },
       },
       legend: {},
       grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        containLabel: true
+        containLabel: true,
       },
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: this.datesArr
+        data: this.datesArr,
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
       },
       series: [
         {
           name: 'Incomes',
           data: this.amountArrIncomes,
           type: 'line',
-          areaStyle: {}
+          areaStyle: {},
         },
         {
           name: 'Expenses',
           data: this.amountArrExpenses,
           type: 'line',
-          areaStyle: {}
-        }
-      ]
+          areaStyle: {},
+        },
+      ],
     };
   }
 

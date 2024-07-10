@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent implements OnInit {
-
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -36,18 +35,14 @@ export class SignInFormComponent implements OnInit {
   submitForm(): void {
     if (this.isValid) {
       const rawForm = this.userFormSignIn.getRawValue();
-      this.authService
-        .login(rawForm.email, rawForm.password)
-        .subscribe({
-          next: () => {
-            this.router.navigateByUrl('balance');
-          },
-          error: (err) => {
-            this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
-          }
-        }
-    )
+      this.authService.login(rawForm.email, rawForm.password).subscribe({
+        next: () => {
+          this.router.navigateByUrl('balance');
+        },
+        error: (err) => {
+          this.errorMessage = err.code.toString().slice(5).replaceAll('-', ' ');
+        },
+      });
     }
   }
-
 }

@@ -1,12 +1,20 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User, user, UserCredential } from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  User,
+  user,
+  UserCredential,
+} from '@angular/fire/auth';
 import { BehaviorSubject, Observable, from, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private firebaseAuth = inject(Auth);
 
   user$: Observable<User | null> = user(this.firebaseAuth);
@@ -18,10 +26,11 @@ export class AuthService {
   uidFire: Observable<string | undefined> = this.uidFireSubj.asObservable();
 
   register(name: string, email: string, password: string): Observable<void> {
-    const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-    .then(response => updateProfile(response.user, {
-      displayName: name
-    }));
+    const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password).then((response) =>
+      updateProfile(response.user, {
+        displayName: name,
+      })
+    );
     return from(promise);
   }
 
@@ -42,5 +51,4 @@ export class AuthService {
   updateUserId(value: string | undefined): void {
     this.uidFireSubj.next(value);
   }
-
 }

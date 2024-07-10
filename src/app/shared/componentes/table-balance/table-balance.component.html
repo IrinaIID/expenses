@@ -1,6 +1,6 @@
 <app-modal-delete
-*ngIf="isModal"
-(modalEvent)="checkModalMessage($event)"
+  *ngIf="isModal"
+  (modalEvent)="checkModalMessage($event)"
 ></app-modal-delete>
 <app-table-control (queryEvent)="setQueries($event)"></app-table-control>
 <app-table-data

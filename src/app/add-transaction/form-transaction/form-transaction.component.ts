@@ -1,17 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TransactionDraft, TypeTransaction } from 'src/app/shared/interfaces';
-import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../CATEGORIES';
+import { TransactionDraft, TypeTransaction } from '../../shared/interfaces';
+import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from '../transaction-categories';
 import { Category } from '../interfaces';
-import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
-import { AuthService } from 'src/app/auth.service';
+import { TransactionFirebaseService } from '../../shared/services/transaction-firebase.service';
+import { AuthService } from '../../auth.service';
 
 type Validation = {
-  title: boolean,
-  regularity: boolean,
-  category: boolean,
-  amount: boolean
-}
+  title: boolean;
+  regularity: boolean;
+  category: boolean;
+  amount: boolean;
+};
 
 @Component({
   selector: 'app-form-transaction',
@@ -78,9 +78,9 @@ export class FormTransactionComponent implements OnInit {
       title: this.transactionForm.controls['title'].valid,
       regularity: this.transactionForm.controls['regularity'].valid,
       category: this.transactionForm.controls['category'].valid,
-      amount: this.transactionForm.controls['amount'].valid
-    }
-    
+      amount: this.transactionForm.controls['amount'].valid,
+    };
+
     if (this.transactionForm?.valid) {
       const arrSubcategories = this.transactionForm.value.subcategories.map((item: boolean | string, index: number) => {
         return item === true ? (item = this.subcategories[index]) : item;

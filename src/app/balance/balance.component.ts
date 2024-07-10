@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './balance.component.html',
   styleUrls: ['./balance.component.scss'],
 })
-export class BalanceComponent { }
+export class BalanceComponent {}

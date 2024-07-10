@@ -1,7 +1,7 @@
 <div class="all-name-page-block">
   <div class="name-page-row">
-    <h1>{{ namePage || 'Your Balance' }}</h1>
-    <p class="today-date">{{ currentDate }}</p>
+    <h1>{{ namePage }}</h1>
+    <p class="today-date">{{ today | date: "yyyy/MM/dd ccc" }}</p>
   </div>
   <div class="owner-information-block">
     <img src="../../../assets/img/blank.svg" alt="blank" />
@@ -9,9 +9,7 @@
       <p class="p-owner">
         owner <span class="span-owner">{{ name }}</span>
       </p>
-      <p class="p-creation-date">
-        your own balance tracker
-      </p>
+      <p class="p-creation-date">your own balance tracker</p>
     </div>
   </div>
 </div>

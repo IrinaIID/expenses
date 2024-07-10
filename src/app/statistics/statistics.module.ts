@@ -6,13 +6,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { SharedModule } from '../shared/shared.module';
 import { ChartComponent } from './chart/chart.component';
 
-
 @NgModule({
   declarations: [StatisticsComponent, ChartComponent],
-  imports: [CommonModule,
-    StatisticsRoutingModule,
-    NgxEchartsModule.forChild(),
-    SharedModule
-  ]
+  imports: [CommonModule, StatisticsRoutingModule, NgxEchartsModule.forChild(), SharedModule],
 })
 export class StatisticsModule {}

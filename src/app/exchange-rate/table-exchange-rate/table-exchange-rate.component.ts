@@ -9,5 +9,4 @@ import { Rate } from '../interfaces';
 export class TableExchangeRateComponent {
   @Input() ratesArr!: Rate[] | null;
   @Input() baseCurrency!: string;
-
 }

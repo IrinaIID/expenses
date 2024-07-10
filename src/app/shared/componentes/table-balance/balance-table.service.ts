@@ -3,31 +3,22 @@ import { TransactionFirebaseService } from '../../services/transaction-firebase.
 import { QueryFieldFilterConstraint } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { BalanceTableData, Transaction } from '../../interfaces';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BalanceTableService {
-
   private transactionService = inject(TransactionFirebaseService);
-
-  dataTable: Observable<Transaction[]> | undefined;
+  private datePipe = inject(DatePipe);
 
   getDataTable(queriesArr: QueryFieldFilterConstraint[] = []) {
-
-    this.dataTable = this.transactionService.getTransactions([...queriesArr]);
-
-    return this.dataTable.pipe(
+    return this.transactionService.getTransactions([...queriesArr]).pipe(
       map((data) => {
         return data.map((transaction) => {
-          const year = new Date(transaction.date).getFullYear();
-          const month = new Date(transaction.date).getMonth() + 1;
-          const day = new Date(transaction.date).getDate();
-
-          const dateString = `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
           return {
             ...transaction,
-            date: dateString,
+            date: this.datePipe.transform(transaction.date, 'yyyy/MM/dd'),
           } as BalanceTableData;
         });
       })

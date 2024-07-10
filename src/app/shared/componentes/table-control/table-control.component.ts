@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { QueryFieldFilterConstraint, where } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/CATEGORIES';
+import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/transaction-categories';
 
 @Component({
   selector: 'app-table-control',
@@ -9,7 +9,6 @@ import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/
   styleUrls: ['./table-control.component.scss'],
 })
 export class TableControlComponent implements OnInit {
-
   private formBuilder = inject(FormBuilder);
 
   @Output() queryEvent = new EventEmitter<QueryFieldFilterConstraint[]>();
@@ -19,7 +18,6 @@ export class TableControlComponent implements OnInit {
     ...INCOME_CATEGORIES.map((item) => item.category),
   ].sort();
 
-  allSortOptions: string[] = ['date', 'type', 'amount', 'regularity', 'title', 'category'];
   queriesForm!: FormGroup;
   allQueries: QueryFieldFilterConstraint[] = [];
 

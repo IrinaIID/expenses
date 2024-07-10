@@ -14,7 +14,7 @@ import { ModalDeleteComponent } from './componentes/modal-delete/modal-delete.co
 import { FooterComponent } from './componentes/footer/footer.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from '../app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,16 +25,9 @@ import { AppRoutingModule } from '../app-routing.module';
     TableBalanceComponent,
     ModalDeleteComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: [BrowserModule, CommonModule, HttpClientModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
     NamePageBlockComponent,
     CardsMonthBlockComponent,
@@ -43,13 +36,8 @@ import { AppRoutingModule } from '../app-routing.module';
     ModalDeleteComponent,
     TableBalanceComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
-  providers: [
-    ExchangeService,
-    TransactionFirebaseService,
-    BalanceTableService,
-    provideHttpClient()
-  ],
+  providers: [ExchangeService, TransactionFirebaseService, BalanceTableService, provideHttpClient()],
 })
 export class SharedModule {}
