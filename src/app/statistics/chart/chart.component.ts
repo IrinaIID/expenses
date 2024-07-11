@@ -1,17 +1,20 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { QueryFieldFilterConstraint } from '@angular/fire/firestore';
 import { EChartsOption } from 'echarts';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Transaction } from 'src/app/shared/interfaces';
 import { TransactionFirebaseService } from 'src/app/shared/services/transaction-firebase.service';
 
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
   private transactionService = inject(TransactionFirebaseService);
+  private datePipe = inject(DatePipe);
 
   @Input() idUser!: string | undefined | null;
 
@@ -28,7 +31,8 @@ export class ChartComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((data) => {
         data.forEach((transaction) => {
-          const date = new Date(transaction.date).toLocaleDateString();
+          const date = this.datePipe.transform(transaction.date, 'yyyy/MM/dd');   
+          
           if (date === this.datesArr[this.datesArr.length - 1]) {
             if (transaction.type === 'income') {
               this.amountArrIncomes[this.amountArrIncomes.length - 1] += transaction.amount;

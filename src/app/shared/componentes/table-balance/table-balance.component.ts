@@ -21,6 +21,7 @@ export class TableBalanceComponent implements OnInit, OnDestroy {
   idTransactionDeleted: string | undefined;
 
   queriesTable: QueryFieldFilterConstraint[] = [];
+  searchStrTable: string;
   dataKeys: (keyof BalanceTableData)[] = [
     'date',
     'type',
@@ -33,7 +34,7 @@ export class TableBalanceComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    this.refreshTable(this.queriesTable);
+    this.refreshTable(this.queriesTable, this.searchStrTable);
   }
 
   ngOnDestroy() {
@@ -42,12 +43,16 @@ export class TableBalanceComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.unsubscribe();
   }
 
-  refreshTable(queriesArr: QueryFieldFilterConstraint[] = []): void {
+  refreshTable(queriesArr: QueryFieldFilterConstraint[], serachStr: string): void {
     this.balanceTableService
       .getDataTable(queriesArr)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((data) => {
         this.dataTable = data.reverse();
+        if(serachStr) {
+           this.dataTable = this.dataTable.filter(transaction => transaction.title.toLocaleLowerCase().includes(serachStr) 
+           || ( transaction.description && transaction.description.toLocaleLowerCase().includes(serachStr)))
+        }
       });
   }
 
@@ -56,15 +61,15 @@ export class TableBalanceComponent implements OnInit, OnDestroy {
     this.isModal = true;
   }
 
-  setQueries($event: QueryFieldFilterConstraint[]): void {
-    this.queriesTable = $event;
-    this.refreshTable($event);
+  setQueries($event: [QueryFieldFilterConstraint[] , string]): void {
+    [this.queriesTable, this.searchStrTable] = $event;
+    this.refreshTable(this.queriesTable, this.searchStrTable);
   }
 
   checkModalMessage($event: boolean): void {
     if ($event && this.idTransactionDeleted) {
       this.transactionFirebaseServise.removeTransaction(this.idTransactionDeleted);
-      this.refreshTable(this.queriesTable);
+      this.refreshTable(this.queriesTable, this.searchStrTable);
       this.isModal = false;
     } else {
       this.isModal = false;

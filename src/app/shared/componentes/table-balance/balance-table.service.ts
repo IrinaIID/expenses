@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { TransactionFirebaseService } from '../../services/transaction-firebase.service';
 import { QueryFieldFilterConstraint } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
-import { BalanceTableData, Transaction } from '../../interfaces';
+import { map } from 'rxjs';
+import { BalanceTableData } from '../../interfaces';
 import { DatePipe } from '@angular/common';
 
 @Injectable({

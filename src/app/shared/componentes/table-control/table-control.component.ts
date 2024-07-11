@@ -11,7 +11,7 @@ import { EXPENSES_CATEGORIES, INCOME_CATEGORIES } from 'src/app/add-transaction/
 export class TableControlComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
 
-  @Output() queryEvent = new EventEmitter<QueryFieldFilterConstraint[]>();
+  @Output() queryEvent = new EventEmitter<[QueryFieldFilterConstraint[] , string]>();
 
   allCategories: string[] = [
     ...EXPENSES_CATEGORIES.map((item) => item.category),
@@ -20,10 +20,11 @@ export class TableControlComponent implements OnInit {
 
   queriesForm!: FormGroup;
   allQueries: QueryFieldFilterConstraint[] = [];
+  searchQueries: string;
 
   ngOnInit(): void {
     this.queriesForm = this.formBuilder.group({
-      search: null,
+      search: '',
       dateFrom: null,
       dateTo: null,
       category: null,
@@ -37,12 +38,14 @@ export class TableControlComponent implements OnInit {
   }
 
   filterSearch(): void {
-    this.queryEvent.emit(this.allQueries);
+    this.queryEvent.emit([this.allQueries, this.searchQueries]);
   }
+
 
   setQueries(): void {
     this.allQueries = [];
-
+    this.searchQueries = this.queriesForm.value.search.toLocaleLowerCase();
+    
     if (this.queriesForm.value.dateFrom) {
       const startDay = new Date(this.queriesForm.value.dateFrom).getTime();
       this.allQueries.push(where('date', '>=', startDay));

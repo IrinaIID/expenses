@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ExchangeService } from '../shared/services/exchange.service';
 import { Currency, Rate } from './interfaces';
 import { map, Observable, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './exchange-rate.component.html',
   styleUrls: ['./exchange-rate.component.scss'],
 })
-export class ExchangeRateComponent implements OnInit {
+export class ExchangeRateComponent implements OnInit, OnDestroy {
   private exchangeService = inject(ExchangeService);
   private authService = inject(AuthService);
 
