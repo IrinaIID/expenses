@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { map, Observable } from 'rxjs';
 import { Auth, user } from '@angular/fire/auth';
@@ -22,7 +22,7 @@ import { Auth, user } from '@angular/fire/auth';
  */
 
 @Injectable({ providedIn: 'root' })
-export class UserIdResolver implements CanActivateChild {
+export class UserIdResolver  {
   constructor(
     private firebaseAuth: Auth,
     private authService: AuthService

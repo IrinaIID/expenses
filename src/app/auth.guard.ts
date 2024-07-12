@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
   private authService = inject(AuthService);
 
   canActivate(): Observable<boolean> | boolean {

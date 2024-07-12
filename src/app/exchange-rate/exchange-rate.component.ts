@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { ExchangeService } from '../shared/services/exchange.service';
 import { Currency, Rate } from './interfaces';
 import { map, Observable, Subscription } from 'rxjs';
