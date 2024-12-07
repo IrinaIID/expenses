@@ -1,0 +1,42 @@
+@import '../../../variables.scss';
+
+.all-form-create-account {
+  display: flex;
+  flex-direction: column;
+
+  .h1-create-account {
+    align-self: center;
+  }
+
+  .label-form-create-account {
+    color: $primary-color;
+    margin: 20px 0 5px;
+  }
+
+  .input-form-create-account {
+    @include border-style-input;
+    width: 400px;
+    font-size: 16px;
+    color: $primary-color;
+    padding: 8px 10px;
+  }
+
+  .btn-submit-create-account {
+    color: $active-btn-toggle-color;
+    background: $accent-color;
+    border: none;
+    border-radius: $base-border-radius;
+    padding: 15px 0;
+    margin: 20px 0 30px;
+    cursor: pointer;
+
+    &:disabled {
+      background: $light-color;
+    }
+  }
+
+  .error-message {
+    color: $error-text-message;
+    margin-top: 10px;
+  }
+}
